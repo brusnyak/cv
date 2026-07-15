@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yegor Brusnyak, AI Engineer</title>
+<style>
+  :root {
+    --ink: #16181d;
+    --ink-soft: #4a4f5a;
+    --ink-faint: #868c99;
+    --line: #e6e7eb;
+    --line-soft: #f0f1f4;
+    --paper: #fbfbf9;
+    --card: #ffffff;
+    --accent: #1f5eff;
+    --accent-soft: #eef2ff;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 64px;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 88px 0 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .avatar { display: none; }
+
+  .kicker {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 22px;
+  }
+
+  .lede {
+    font-size: clamp(17px, 2.4vw, 20px);
+    color: var(--ink-soft);
+    max-width: 620px;
+    line-height: 1.55;
+  }
+
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .meta {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+  .meta span { display: inline-flex; align-items: center; gap: 7px; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--ink-faint); }
+
+  .links {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.18s ease;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    background: var(--card);
+  }
+  .btn:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { background: #1749d6; border-color: #1749d6; }
+
+  /* SECTIONS */
+  section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+
+  .sec-head {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  /* PROJECTS */
+  .project {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .project:first-of-type { border-top: none; padding-top: 0; }
+
+  .proj-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
+  .proj-name {
+    font-family: var(--serif);
+    font-size: 23px;
+    letter-spacing: -0.01em;
+  }
+  .proj-name .live {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-left: 10px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .proj-link {
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .proj-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .proj-desc { color: var(--ink-soft); font-size: 15.5px; max-width: 660px; }
+
+  .proj-tags {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 12px;
+    color: var(--ink-faint);
+    border: 1px solid var(--line);
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: var(--card);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 26px;
+  }
+  .skill-col h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .skill-col p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.75; }
+
+  /* EXPERIENCE / EDUCATION */
+  .entry { padding: 22px 0; border-top: 1px solid var(--line-soft); }
+  .entry:first-child { border-top: none; padding-top: 0; }
+  .entry-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    align-items: baseline;
+  }
+  .entry-title { font-family: var(--serif); font-size: 20px; }
+  .entry-when { font-size: 13px; color: var(--ink-faint); white-space: nowrap; }
+  .entry-sub { color: var(--ink-faint); font-size: 14px; margin-top: 2px; }
+  .entry ul { margin: 12px 0 0 0; padding-left: 18px; }
+  .entry li { color: var(--ink-soft); font-size: 15px; margin-bottom: 6px; }
+
+  /* FOOTER */
+  footer { padding: 48px 0 20px; text-align: center; }
+  footer .fnote { font-size: 13px; color: var(--ink-faint); margin-bottom: 20px; }
+  footer .links { justify-content: center; }
+
+  @media (max-width: 560px) {
+    header { padding-top: 56px; }
+    .wrap { padding: 0 22px; }
+  }
+
+  @media print {
+    body { padding-bottom: 0; }
+    .btn { border: 1px solid #ccc; }
+    section, header { break-inside: avoid; }
+    .project, .entry { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Full-Stack AI Engineer</div>
+    <h1>Yegor Brusnyak</h1>
+    <p class="lede">I ship <strong>AI products end to end</strong> — real-time voice agents, LLM-powered tools, and automation that touches real users and real data. I take an idea to a working, deployed system fast.</p>
+    <div class="meta">
+      <span>Bratislava, Slovakia</span>
+      <span class="dot"></span>
+      <span>Remote-first</span>
+      <span class="dot"></span>
+      <span>Available immediately</span>
+      <span class="dot"></span>
+      <span>EN · DE · UK · SK · RU</span>
+    </div>
+    <div class="links">
+      <a class="btn primary" href="mailto:brusnyakyegor@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/brusnyak" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://linkedin.com/in/yegor-brusnyak" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://upwork.com/freelancers/yegorb10" target="_blank" rel="noopener">Upwork</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">What I do</div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h4>AI &amp; Voice</h4>
+        <p>LLM APIs, RAG, embeddings, prompt workflows, AI agents, Whisper, STT/TTS, Retell, ElevenLabs</p>
+      </div>
+      <div class="skill-col">
+        <h4>Backend</h4>
+        <p>Python, FastAPI, REST APIs, WebSockets, PostgreSQL, Supabase, pgvector</p>
+      </div>
+      <div class="skill-col">
+        <h4>Frontend</h4>
+        <p>React, Next.js, TypeScript, JavaScript, Tailwind CSS</p>
+      </div>
+      <div class="skill-col">
+        <h4>Tools &amp; Infra</h4>
+        <p>Git, GitHub, Docker, Linux, pytest, Stripe, Vercel, API integrations</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">Selected work</div>
+
+    <div class="project">
+      <div class="proj-top">
+        <div class="proj-name">Recareo <span class="live">Live product</span></div>
+        <a class="proj-link" href="https://recareo.uk" target="_blank" rel="noopener">recareo.uk &#8599;</a>
+      </div>
+      <p class="proj-desc">An AI voice-recall system for UK dental practices — it calls lapsed patients and books appointments automatically. Built the full voice-agent workflow, the lead-enrichment pipeline, and shipped the public site and paid offer end to end.</p>
+      <div class="proj-tags">
+        <span class="tag">Voice AI</span><span class="tag">Retell / ElevenLabs</span><span class="tag">Next.js</span><span class="tag">Vercel</span><span class="tag">Stripe</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-top">
+        <div class="proj-name">AI Recruitment Copilot</div>
+        <a class="proj-link" href="https://github.com/brusnyak/ai-recruitment-copilot" target="_blank" rel="noopener">github &#8599;</a>
+      </div>
+      <p class="proj-desc">End-to-end AI tool for CV/JD parsing, candidate&ndash;job matching, and interview prep. Semantic search with RAG re-ranking, LLM fit scoring with match explanations, and LLM observability for output quality.</p>
+      <div class="proj-tags">
+        <span class="tag">FastAPI</span><span class="tag">Next.js</span><span class="tag">pgvector</span><span class="tag">RAG</span><span class="tag">LLM APIs</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-top">
+        <div class="proj-name">AgentOps Control Room</div>
+        <a class="proj-link" href="https://github.com/brusnyak/agentops-control-room" target="_blank" rel="noopener">github &#8599;</a>
+      </div>
+      <p class="proj-desc">A control room for configurable AI outbound workflows across voice, SMS, and email &mdash; with a run engine, evaluation, versioning, regression tracking, and observability.</p>
+      <div class="proj-tags">
+        <span class="tag">FastAPI</span><span class="tag">Next.js</span><span class="tag">Agent workflows</span><span class="tag">Eval / observability</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-top">
+        <div class="proj-name">Real-Time Speech Translation</div>
+        <a class="proj-link" href="https://github.com/brusnyak/bp" target="_blank" rel="noopener">github &#8599;</a>
+      </div>
+      <p class="proj-desc">Bachelor thesis: live speech translation with voice cloning for online conferences. A speech pipeline with Whisper STT, Opus-MT translation, multi-TTS, and WebSockets, tuned for near-real-time output.</p>
+      <div class="proj-tags">
+        <span class="tag">Whisper</span><span class="tag">Opus-MT</span><span class="tag">TTS</span><span class="tag">WebSockets</span><span class="tag">FastAPI</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">Experience</div>
+    <div class="entry">
+      <div class="entry-top">
+        <div class="entry-title">Independent AI Engineer &amp; Product Builder</div>
+        <div class="entry-when">2025 &ndash; Present · Remote</div>
+      </div>
+      <div class="entry-sub">Voice agents, LLM applications, and workflow automation</div>
+      <ul>
+        <li>Design and ship AI products end to end &mdash; from concept to deployed, working system.</li>
+        <li>Deliver bespoke voice agents, document parsing, lead enrichment, and outbound workflow tools.</li>
+        <li>Stack: FastAPI, React/Next.js, LLM APIs, Retell/ElevenLabs voice, PostgreSQL, Stripe.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">Education</div>
+    <div class="entry">
+      <div class="entry-top">
+        <div class="entry-title">Slovak University of Technology (FEI STU)</div>
+        <div class="entry-when">Expected 2027</div>
+      </div>
+      <div class="entry-sub">B.Sc., Information &amp; Communication Technologies &mdash; Computer Science</div>
+      <ul>
+        <li>Bachelor thesis: Real-Time Speech Translation During Online Conferences.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p class="fnote">Open to remote contract and full-time AI engineering roles.</p>
+    <div class="links">
+      <a class="btn primary" href="mailto:brusnyakyegor@gmail.com">brusnyakyegor@gmail.com</a>
+      <a class="btn" href="https://github.com/brusnyak" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://linkedin.com/in/yegor-brusnyak" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
