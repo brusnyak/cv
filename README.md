@@ -10,7 +10,7 @@ https://brusnyak.github.io/cv/
 
 Target custom domain:
 
-https://yegor.work.gd
+[https://yegor.work.gd](https://yegor-brusnyak.vercel.app/)
 
 ## Positioning
 
