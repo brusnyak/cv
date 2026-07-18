@@ -1,35 +1,49 @@
-# Yegor Brusnyak — AI Engineer CV
+# Yegor Brusnyak - Portfolio
 
-A simple online CV and portfolio page for my AI engineering work.
+Responsive portfolio/CV site for AI automation, bot development, LLM workflows, and full-stack AI systems.
 
-## View the CV
+## Live
 
-**Live page:** https://brusnyak.github.io/cv/
+Current GitHub Pages URL:
 
-The page includes:
+https://brusnyak.github.io/cv/
 
-- selected AI / automation projects
-- full-stack and voice AI experience
-- contact links
-- GitHub / LinkedIn / Upwork links
-- current availability
+Target custom domain:
 
-## Focus
+https://yegor.work.gd
 
-I am focused on practical AI systems, especially:
+## Positioning
 
-- LLM-powered workflow automation
-- voice AI and call automation
-- AI-assisted operations tools
-- RAG, document parsing, and matching systems
-- FastAPI / React / Next.js applications
+The page presents Yegor as a computer science student and AI automation developer focused on practical systems:
 
-## Selected Projects
+- messaging bots and webhooks
+- LangGraph/LLM workflow automation
+- voice-agent and missed-call workflows
+- backend APIs and operator tooling
+- responsive frontend delivery
 
-- [AI Recruitment Copilot](https://github.com/brusnyak/ai-recruitment-copilot) — CV/JD parsing, RAG candidate matching, LLM fit scoring, interview prep, and observability.
-- [AgentOps Control Room](https://github.com/brusnyak/agentops-control-room) — control room for configurable outbound AI workflows across voice, SMS, and email.
-- [Voice AI Content Engine](https://github.com/brusnyak/jobiz) — approval-first social content repurposing workflow for voice AI founders and agencies.
+## Featured Projects
 
-## Contact
+- Channel Agent Runtime - LangGraph-backed Telegram, Discord, Slack, and WhatsApp-style bot runtime.
+- AI Recruitment Copilot - CV/JD parsing, RAG candidate matching, fit scoring, and observability.
+- AgentOps Control Room - control room for configurable AI outbound workflows.
+- Recareo / Missed-Call Automation - AI phone workflow direction for missed-call recovery and lead follow-up.
 
-Use the links on the live CV page: https://brusnyak.github.io/cv/
+## Design Direction
+
+Inspired by Aptifolio-style portfolio structure:
+
+- sticky compact navigation
+- profile rail with portrait and fast contact actions
+- dark technical interface style
+- project cards with visual proof panels
+- responsive mobile-first stacking
+
+## Deploy
+
+This repository deploys to GitHub Pages through `.github/workflows/static.yml` on pushes to `main`.
+
+For `yegor.work.gd`, either:
+
+- point DNS to GitHub Pages and add a `CNAME` file, or
+- deploy the static files to the VPS at `62.197.243.163` behind Caddy/Nginx.
