@@ -42,9 +42,51 @@
     position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;
     background:var(--accent);pointer-events:none;z-index:9999;
     transform:translate(-50%,-50%);
+    transition:transform .12s ease-out;
     mix-blend-mode:multiply;
   }
   @media (hover:none){ body{cursor:auto} #cursor-dot{display:none} }
+  .cursor-ripple{
+    position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;
+    border:1.5px solid var(--accent);pointer-events:none;z-index:9998;
+    transform:translate(-50%,-50%);
+    animation:ripple .5s ease-out forwards;
+  }
+  @keyframes ripple{
+    from{width:14px;height:14px;opacity:0.7}
+    to{width:46px;height:46px;opacity:0}
+  }
+
+  /* ---- project review modal ---- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(21,20,15,0.55);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;padding:32px;
+    opacity:0;pointer-events:none;transition:opacity .2s;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto}
+  .modal-panel{
+    position:relative;width:100%;max-width:640px;max-height:86vh;overflow-y:auto;
+    background:var(--panel);border-radius:20px;border:1px solid var(--border-strong);
+    box-shadow:0 30px 80px -20px rgba(20,20,15,0.35);
+    transform:translateY(14px) scale(0.98);transition:transform .25s;
+  }
+  .modal-overlay.open .modal-panel{transform:translateY(0) scale(1)}
+  .modal-close{
+    position:absolute;top:16px;right:16px;z-index:2;
+    width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.9);
+    border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;color:var(--text);
+  }
+  .modal-close:hover{border-color:var(--accent);color:var(--accent)}
+  .modal-close svg{width:16px;height:16px}
+  .modal-media{height:260px;background:linear-gradient(135deg,#f1f3fb,#f8f6ee)}
+  .modal-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .modal-body{padding:32px}
+  .modal-body .project-meta{margin-bottom:10px}
+  .modal-body h3{font-size:24px;font-weight:800;letter-spacing:-0.01em}
+  .modal-body p.desc{margin-top:12px;font-size:15px}
+  .modal-body .tags{margin-top:18px}
+  .modal-body .project-links{margin-top:22px}
 
   .page{max-width:1440px;margin:0 auto;padding:0 56px;position:relative;z-index:1}
   .eyebrow{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent)}
@@ -174,6 +216,15 @@
 <body>
 <canvas id="bg-canvas"></canvas>
 <div id="cursor-dot"></div>
+
+<div class="modal-overlay" id="project-modal" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modal-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div id="modal-content"></div>
+  </div>
+</div>
 
 <div class="page">
   <div class="layout">
@@ -368,7 +419,7 @@
         </div>
       </section>
 
-      <footer class="foot">Built by Yegor Brusnyak · yegor.work.gd</footer>
+      <footer class="foot">Built by Yegor Brusnyak</footer>
     </main>
   </div>
 </div>
@@ -468,7 +519,7 @@
         var dx = a.x-b.x, dy = ay-by;
         var dist = Math.sqrt(dx*dx+dy*dy);
         if (dist < linkDist){
-          var op = (1 - dist/linkDist) * 0.28 * ((a.z+b.z)/2);
+          var op = (1 - dist/linkDist) * 0.10 * ((a.z+b.z)/2);
           ctx.strokeStyle = 'rgba(37,84,232,'+op+')';
           ctx.lineWidth = 1;
           ctx.beginPath();
@@ -486,8 +537,8 @@
         if (cdist < 200) glow = (1 - cdist/200);
       }
       ctx.beginPath();
-      ctx.arc(a.x,ay,(1.6*a.z+0.8)+glow*2.2,0,Math.PI*2);
-      ctx.fillStyle = 'rgba(37,84,232,'+Math.min(1,(0.5*a.z+0.22)+glow*0.6)+')';
+      ctx.arc(a.x,ay,(1.4*a.z+0.6)+glow*2.6,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(37,84,232,'+Math.min(1,(0.18*a.z+0.06)+glow*0.75)+')';
       ctx.fill();
     }
 
@@ -522,6 +573,20 @@
   });
   window.addEventListener('mouseleave', function(){ mouse.active = false; });
 
+  /* click ripple on the custom cursor */
+  window.addEventListener('mousedown', function(e){
+    var ripple = document.createElement('div');
+    ripple.className = 'cursor-ripple';
+    ripple.style.left = e.clientX+'px';
+    ripple.style.top = e.clientY+'px';
+    document.body.appendChild(ripple);
+    ripple.addEventListener('animationend', function(){ ripple.remove(); });
+    cursorDot.style.transform = 'translate(-50%,-50%) scale(0.6)';
+  });
+  window.addEventListener('mouseup', function(){
+    cursorDot.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+
   resize();
   step();
 
@@ -545,6 +610,40 @@
   }
   window.addEventListener('scroll', onScroll);
   onScroll();
+
+  /* project card review modal */
+  var overlay = document.getElementById('project-modal');
+  var modalContent = document.getElementById('modal-content');
+  var modalClose = document.getElementById('modal-close');
+
+  function openModal(card){
+    var media = card.querySelector('.project-media').cloneNode(true);
+    media.className = 'modal-media';
+    var body = card.querySelector('.project-body').cloneNode(true);
+    body.className = 'modal-body';
+    modalContent.innerHTML = '';
+    modalContent.appendChild(media);
+    modalContent.appendChild(body);
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.project-card').forEach(function(card){
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e){
+      if (e.target.closest('.project-links')) return; /* let Website/GitHub links navigate normally */
+      openModal(card);
+    });
+  });
+  modalClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
 })();
 </script>
 </body>
