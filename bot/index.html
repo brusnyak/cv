@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Yegor Brusnyak - messaging bot developer proof for Telegram, Discord, Slack, WhatsApp-style webhooks, LLM bot runtime, and operator workflows.">
+<meta property="og:title" content="Yegor Brusnyak - Messaging Bot Developer">
+<meta property="og:description" content="Telegram, Discord, Slack, WhatsApp-style webhooks, dialogue state, LLM fallback, logging, and approval-first bot workflows.">
+<meta property="og:image" content="../assets/bot/messaging-ops-desktop.png">
+<meta name="theme-color" content="#faf9f7">
+<title>Yegor Brusnyak - Messaging Bot Developer</title>
+<style>
+  :root{
+    --bg:#faf9f7;
+    --panel:#ffffff;
+    --border:#e7e5e1;
+    --border-strong:#d8d5cf;
+    --text:#15140f;
+    --muted:#6b6862;
+    --soft:#98958d;
+    --accent:#2554e8;
+    --accent-soft:rgba(37,84,232,0.08);
+    --accent-line:rgba(37,84,232,0.18);
+    --green:#1fa262;
+    --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  p,h1,h2,h3{margin:0}
+  .page{max-width:1440px;margin:0 auto;padding:0 56px}
+  .layout{display:flex;gap:72px}
+  aside.sidebar{width:38%;min-width:320px;flex-shrink:0;position:sticky;top:0;align-self:flex-start;height:100vh;padding:72px 0;display:flex;flex-direction:column;justify-content:space-between}
+  .portrait{width:96px;height:96px;border-radius:50%;overflow:hidden;border:1px solid var(--border-strong)}
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  h1.name{font-size:46px;font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-top:24px}
+  p.role{font-size:18px;font-weight:600;color:var(--accent);margin-top:10px}
+  .status-pill{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:7px 14px;border-radius:999px;border:1px solid var(--border-strong);font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted)}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(31,162,98,0.15)}
+  .loc-row{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:var(--muted)}
+  .loc-row svg{width:15px;height:15px;color:var(--soft)}
+  nav.side-nav{display:flex;flex-direction:column;margin-top:52px}
+  nav.side-nav a{display:flex;align-items:center;gap:16px;padding:11px 0;font-size:12.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--soft)}
+  nav.side-nav a .tick{width:28px;height:2px;background:var(--border-strong);flex-shrink:0;transition:.2s}
+  nav.side-nav a:hover{color:var(--text)}
+  nav.side-nav a:hover .tick{width:44px;background:var(--accent)}
+  .icon-row{display:flex;gap:10px}
+  .icon-btn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-strong);color:var(--muted);transition:.15s}
+  .icon-btn svg{width:16px;height:16px}
+  .icon-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  main.content{width:62%;padding:72px 0 140px}
+  section{padding-bottom:92px}
+  section:last-of-type{padding-bottom:60px}
+  .section-head{margin-bottom:30px}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  h2.section-title{font-size:26px;font-weight:800;letter-spacing:-0.01em;color:var(--accent)}
+  .section-underline{width:44px;height:3px;background:var(--accent);border-radius:2px;margin-top:10px}
+  .hero h2{font-size:38px;line-height:1.08;letter-spacing:-0.02em;margin-bottom:18px}
+  .hero p.lede{font-size:17px;line-height:1.75;color:var(--muted);max-width:66ch}
+  .hero p.lede + p.lede{margin-top:14px}
+  .hero-actions{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:600;border:1px solid var(--border-strong);color:var(--text);background:var(--panel);transition:.15s}
+  .pill.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .pill.primary:hover{opacity:.9}
+  .pill:not(.primary):hover{border-color:var(--accent);color:var(--accent)}
+  .proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
+  .proof-stat{border:1px solid var(--border);background:rgba(255,255,255,.52);border-radius:12px;padding:14px}
+  .proof-stat strong{display:block;font-size:20px;line-height:1;color:var(--accent)}
+  .proof-stat span{display:block;margin-top:7px;font-size:12px;color:var(--muted)}
+  .video-frame{border:1px solid var(--border-strong);border-radius:18px;background:var(--panel);overflow:hidden;box-shadow:0 18px 60px -35px rgba(20,20,15,.4)}
+  .video-aspect{aspect-ratio:16/10;background:#111}
+  .video-aspect iframe{width:100%;height:100%;border:0;display:block}
+  .video-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-top:1px solid var(--border)}
+  .video-caption p{font-size:13.5px;color:var(--muted)}
+  .project-grid{display:grid;grid-template-columns:1fr;gap:28px}
+  .project-card{display:grid;grid-template-columns:minmax(220px,40%) 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.46);backdrop-filter:blur(14px);transition:.2s}
+  .project-card:hover{border-color:var(--accent-line);box-shadow:0 14px 40px -24px rgba(20,20,15,.25);transform:translateY(-1px)}
+  .project-media{min-height:230px;background:linear-gradient(135deg,#f1f3fb,#f8f6ee);position:relative}
+  .project-media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+  .project-body{padding:24px}
+  .project-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--soft);margin-bottom:8px}
+  .project-body h3{font-size:20px;font-weight:750}
+  .project-body p.desc{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.62}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .tags span{font-size:11.5px;color:var(--muted);border:1px solid var(--border-strong);padding:3px 9px;border-radius:6px;background:var(--bg)}
+  .project-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+  .project-links a{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;color:var(--accent)}
+  .project-links a:hover{opacity:.72}
+  .matrix{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .matrix-card{border:1px solid var(--border);background:var(--panel);border-radius:14px;padding:22px}
+  .matrix-card h3{font-size:15px;font-weight:760;margin-bottom:10px}
+  .matrix-card p,.matrix-card li{font-size:14px;color:var(--muted)}
+  .matrix-card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+  .boundary{border:1px solid var(--border-strong);border-radius:18px;background:var(--panel);padding:28px}
+  .boundary h3{font-size:19px;margin-bottom:12px}
+  .boundary p{color:var(--muted);font-size:14.5px;max-width:70ch}
+  .contact-card{border:1px solid var(--border-strong);border-radius:18px;background:var(--panel);padding:44px;display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+  .contact-card h2{font-size:24px;font-weight:800;max-width:34ch;letter-spacing:-0.01em}
+  .contact-card p{color:var(--muted);font-size:14.5px}
+  footer.foot{color:var(--soft);font-size:12px;padding-top:32px;border-top:1px solid var(--border)}
+  @media (max-width:960px){
+    .page{padding:0 20px}
+    .layout{flex-direction:column;gap:0}
+    aside.sidebar{width:100%;min-width:0;position:relative;height:auto;padding:44px 0 32px}
+    main.content{width:100%;padding:0 0 90px}
+    .proof-strip,.matrix{grid-template-columns:1fr 1fr}
+    .project-card{grid-template-columns:1fr}
+    .project-media{min-height:210px}
+  }
+  @media (max-width:620px){
+    .hero h2{font-size:31px}
+    .proof-strip,.matrix{grid-template-columns:1fr}
+    .video-caption{align-items:flex-start;flex-direction:column}
+    .contact-card{padding:28px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="portrait"><img src="../assets/yegor-portrait.jpg" alt="Portrait of Yegor Brusnyak"></div>
+        <h1 class="name">Yegor<br>Brusnyak</h1>
+        <p class="role">Messaging Bot Developer</p>
+        <div class="status-pill"><span class="status-dot"></span>Remote · Contract · Part-time</div>
+        <div class="loc-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Bratislava, Slovakia · English-first
+        </div>
+        <nav class="side-nav" aria-label="Section navigation">
+          <a href="#demo"><span class="tick"></span>Demo</a>
+          <a href="#projects"><span class="tick"></span>Bot Proof</a>
+          <a href="#fit"><span class="tick"></span>Role Fit</a>
+          <a href="#boundaries"><span class="tick"></span>Boundaries</a>
+          <a href="#contact"><span class="tick"></span>Contact</a>
+          <a href="../"><span class="tick"></span>General CV</a>
+        </nav>
+      </div>
+      <div class="icon-row" aria-label="Profile links">
+        <a class="icon-btn" href="mailto:brusnyakyegor@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        </a>
+        <a class="icon-btn" href="https://github.com/brusnyak" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.4 9.4 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+        </a>
+        <a class="icon-btn" href="https://linkedin.com/in/yegor-brusnyak" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.02 2 2 0 0 1 4 .02ZM3.3 8.75h3.66V21H3.3V8.75Zm6.28 0h3.51v1.68h.05c.49-.92 1.7-1.9 3.5-1.9 3.75 0 4.44 2.47 4.44 5.68V21h-3.66v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9.58V8.75Z"/></svg>
+        </a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero" id="top">
+        <div class="eyebrow">Telegram · Discord · Slack · WhatsApp-style Webhooks</div>
+        <h2>Bot systems with channel adapters, dialogue state, fallbacks, logs, and human review.</h2>
+        <p class="lede">I build messaging bots and bot backends around the parts that matter in real use: platform-specific payloads, webhooks, conversation state, approval queues, LLM fallback behavior, and operational visibility.</p>
+        <p class="lede">This page is targeted at bot-development roles such as WhatsApp Business API, Telegram Bot API, Discord API, Slack, LLM workflow, and webhook automation work.</p>
+        <div class="hero-actions">
+          <a class="pill primary" href="#demo">Watch 4:30 demo</a>
+          <a class="pill" href="https://cap.link/wev10nak3j6y2cw" target="_blank" rel="noopener">Open Cap recording</a>
+          <a class="pill" href="../assets/yegor-brusnyak-cv.pdf" target="_blank" rel="noopener">CV PDF</a>
+        </div>
+        <div class="proof-strip" aria-label="Proof summary">
+          <div class="proof-stat"><strong>4</strong><span>channel families shown</span></div>
+          <div class="proof-stat"><strong>2</strong><span>live bot examples</span></div>
+          <div class="proof-stat"><strong>5</strong><span>runtime smoke suites</span></div>
+          <div class="proof-stat"><strong>1</strong><span>shared state graph</span></div>
+        </div>
+      </section>
+
+      <section id="demo">
+        <div class="section-head">
+          <h2 class="section-title">Demo Recording</h2>
+          <div class="section-underline"></div>
+        </div>
+        <div class="video-frame">
+          <div class="video-aspect">
+            <iframe src="https://cap.so/embed/wev10nak3j6y2cw" title="Bot Demo by Yegor Brusnyak" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-caption">
+            <p>4:30 walkthrough: channel runtime, Telegram, Discord, WhatsApp-style webhook/operator proof, and the honest production boundary.</p>
+            <a class="pill" href="https://cap.link/wev10nak3j6y2cw" target="_blank" rel="noopener">Open video</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-head">
+          <h2 class="section-title">Bot Proof</h2>
+          <div class="section-underline"></div>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-media"><img src="../assets/bot/messaging-ops-desktop.png" alt="Messaging Bot Ops Lab dashboard"></div>
+            <div class="project-body">
+              <div class="project-meta"><span>Primary proof</span><span>·</span><span>Node runtime</span></div>
+              <h3>Channel Agent Runtime</h3>
+              <p class="desc">Config-driven multi-channel runtime where Telegram, Discord, Slack, and WhatsApp-style events normalize into one LangGraph state graph for route selection, tool execution, JSONL audit, and approval-first replies.</p>
+              <div class="tags"><span>Node.js</span><span>LangGraph</span><span>grammY</span><span>discord.js</span><span>Slack Bolt</span><span>Webhooks</span></div>
+              <div class="project-links">
+                <a href="https://github.com/brusnyak/channel-agent-runtime" target="_blank" rel="noopener">GitHub</a>
+                <a href="#fit">Why it fits bot roles</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media"><img src="../assets/bot/telegram-salon.jpg" alt="Telegram Salon Bot booking flow"></div>
+            <div class="project-body">
+              <div class="project-meta"><span>Telegram Bot API</span><span>·</span><span>Booking flow</span></div>
+              <h3>Telegram Salon Bot</h3>
+              <p class="desc">Appointment-setting Telegram bot with inline keyboard flow, stylist/service/date/time selection, SQLite-backed bookings, admin commands, reminders, and optional operations webhook events.</p>
+              <div class="tags"><span>Python</span><span>Telegram Bot API</span><span>SQLite</span><span>Schedulers</span><span>Systemd</span></div>
+              <div class="project-links">
+                <a href="https://github.com/brusnyak/telegram-salon-bot" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://youtu.be/tlSO3s49Gfw" target="_blank" rel="noopener">Demo video</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media"><img src="../assets/bot/messaging-ops-mobile.png" alt="Mobile view of messaging bot operator dashboard"></div>
+            <div class="project-body">
+              <div class="project-meta"><span>Discord API</span><span>·</span><span>Moderation</span></div>
+              <h3>Discord Moderation Bot</h3>
+              <p class="desc">Discord bot with slash commands, warning ladder, tickets, auto-moderation, audit logging, SQLite case history, safe demo incidents, and optional LLM moderation assistance.</p>
+              <div class="tags"><span>Python</span><span>discord.py</span><span>Slash commands</span><span>SQLite</span><span>OpenRouter</span></div>
+              <div class="project-links">
+                <a href="https://github.com/brusnyak/discord-mod-bot" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://youtu.be/f7ZKzBm6PHg" target="_blank" rel="noopener">Demo video</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media"><img src="../assets/bot/real-call-lab-desktop.png" alt="Real call recovery lab dashboard"></div>
+            <div class="project-body">
+              <div class="project-meta"><span>Webhook lab</span><span>·</span><span>Operator workflow</span></div>
+              <h3>Messaging Bot Ops Lab</h3>
+              <p class="desc">Local bot operations system with provider-shaped webhook endpoints, persisted conversation state, raw payload visibility, intent/urgency extraction, eval checks, and approval/rejection endpoints before outbound replies.</p>
+              <div class="tags"><span>React</span><span>Node.js</span><span>Webhook intake</span><span>Outbox queue</span><span>Eval checks</span></div>
+              <div class="project-links">
+                <a href="https://github.com/brusnyak/jobiz/tree/main/apps/messaging-bot-ops-lab" target="_blank" rel="noopener">Code path</a>
+                <a href="#boundaries">Production boundary</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="fit">
+        <div class="section-head">
+          <h2 class="section-title">Role Fit</h2>
+          <div class="section-underline"></div>
+        </div>
+        <div class="matrix">
+          <div class="matrix-card">
+            <h3>Messaging platforms</h3>
+            <ul>
+              <li>Telegram via Bot API and grammY/python-telegram-bot.</li>
+              <li>Discord via discord.js and discord.py with commands and events.</li>
+              <li>Slack via Bolt Socket Mode in the shared runtime.</li>
+              <li>WhatsApp-style inbound webhooks for Meta/Twilio/Hermes-shaped payloads.</li>
+            </ul>
+          </div>
+          <div class="matrix-card">
+            <h3>Reliability layer</h3>
+            <ul>
+              <li>Conversation state persisted for review and replay.</li>
+              <li>Human approval before risky outbound replies.</li>
+              <li>Raw payload inspection for malformed provider events.</li>
+              <li>Template fallback when LLM drafting fails.</li>
+            </ul>
+          </div>
+          <div class="matrix-card">
+            <h3>Backend integration</h3>
+            <ul>
+              <li>REST/webhook endpoints for Telegram, Discord, and WhatsApp-shaped events.</li>
+              <li>SQLite/JSONL persistence for conversation state, bookings, and audit history.</li>
+              <li>Tools for availability checks, route decisions, moderation actions, and handoff.</li>
+            </ul>
+          </div>
+          <div class="matrix-card">
+            <h3>AI-assisted code review fit</h3>
+            <ul>
+              <li>Bot logic is testable through smoke suites and deterministic simulations.</li>
+              <li>AI-generated output is treated as draft behavior, not as trusted infrastructure.</li>
+              <li>Failures are surfaced through logs, evals, and review gates instead of silent sends.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="boundaries">
+        <div class="section-head">
+          <h2 class="section-title">Honest Boundaries</h2>
+          <div class="section-underline"></div>
+        </div>
+        <div class="boundary">
+          <h3>What is live, tested, and simulated</h3>
+          <p>Telegram and Discord proof are live-testable bot examples. Slack auth and send checks are validated in the runtime. WhatsApp work is currently webhook handling and local workflow proof; production sending requires Meta Cloud API or Twilio sender setup, templates, opt-in rules, and account credentials. The demos are portfolio proof and implementation evidence, not inflated enterprise client deployments.</p>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="contact-card">
+          <div>
+            <h2>Best fit: messaging bots, webhook automation, LLM bot reliability, and operator review workflows.</h2>
+            <p>Available for remote freelance, part-time, or contract bot-development work across Telegram, Discord, Slack, and WhatsApp-style systems.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="pill primary" href="mailto:brusnyakyegor@gmail.com">brusnyakyegor@gmail.com</a>
+            <a class="pill" href="https://github.com/brusnyak" target="_blank" rel="noopener">GitHub</a>
+            <a class="pill" href="https://linkedin.com/in/yegor-brusnyak" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="pill" href="../">General CV</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot">Built by Yegor Brusnyak · Targeted bot-development proof page</footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>
