@@ -8,6 +8,7 @@
 <meta property="og:description" content="Telegram, Discord, Slack, WhatsApp-style webhooks, dialogue state, LLM fallback, logging, and approval-first bot workflows.">
 <meta property="og:image" content="../assets/bot/messaging-ops-desktop.png">
 <meta name="theme-color" content="#faf9f7">
+<link rel="icon" href="data:,">
 <title>Yegor Brusnyak - Messaging Bot Developer</title>
 <style>
   :root{
@@ -26,10 +27,15 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;cursor:none}
   a{color:inherit;text-decoration:none}
   p,h1,h2,h3{margin:0}
-  .page{max-width:1440px;margin:0 auto;padding:0 56px}
+  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  #cursor-dot{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s ease-out;mix-blend-mode:multiply}
+  @media (hover:none){body{cursor:auto}#cursor-dot{display:none}}
+  .cursor-ripple{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);animation:ripple .5s ease-out forwards}
+  @keyframes ripple{from{width:14px;height:14px;opacity:.7}to{width:46px;height:46px;opacity:0}}
+  .page{max-width:1440px;margin:0 auto;padding:0 56px;position:relative;z-index:1}
   .layout{display:flex;gap:72px}
   aside.sidebar{width:38%;min-width:320px;flex-shrink:0;position:sticky;top:0;align-self:flex-start;height:100vh;padding:72px 0;display:flex;flex-direction:column;justify-content:space-between}
   .portrait{width:96px;height:96px;border-radius:50%;overflow:hidden;border:1px solid var(--border-strong)}
@@ -43,8 +49,8 @@
   nav.side-nav{display:flex;flex-direction:column;margin-top:52px}
   nav.side-nav a{display:flex;align-items:center;gap:16px;padding:11px 0;font-size:12.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--soft)}
   nav.side-nav a .tick{width:28px;height:2px;background:var(--border-strong);flex-shrink:0;transition:.2s}
-  nav.side-nav a:hover{color:var(--text)}
-  nav.side-nav a:hover .tick{width:44px;background:var(--accent)}
+  nav.side-nav a.active,nav.side-nav a:hover{color:var(--text)}
+  nav.side-nav a.active .tick,nav.side-nav a:hover .tick{width:44px;background:var(--accent)}
   .icon-row{display:flex;gap:10px}
   .icon-btn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-strong);color:var(--muted);transition:.15s}
   .icon-btn svg{width:16px;height:16px}
@@ -69,15 +75,27 @@
   .proof-stat strong{display:block;font-size:20px;line-height:1;color:var(--accent)}
   .proof-stat span{display:block;margin-top:7px;font-size:12px;color:var(--muted)}
   .video-frame{border:1px solid var(--border-strong);border-radius:18px;background:var(--panel);overflow:hidden;box-shadow:0 18px 60px -35px rgba(20,20,15,.4)}
-  .video-aspect{aspect-ratio:16/10;background:#111}
+  .video-aspect{aspect-ratio:16/9;background:#111}
   .video-aspect iframe{width:100%;height:100%;border:0;display:block}
   .video-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-top:1px solid var(--border)}
   .video-caption p{font-size:13.5px;color:var(--muted)}
   .project-grid{display:grid;grid-template-columns:1fr;gap:28px}
-  .project-card{display:grid;grid-template-columns:minmax(220px,40%) 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.46);backdrop-filter:blur(14px);transition:.2s}
+  .project-card{display:grid;grid-template-columns:minmax(220px,40%) 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.46);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.2s}
   .project-card:hover{border-color:var(--accent-line);box-shadow:0 14px 40px -24px rgba(20,20,15,.25);transform:translateY(-1px)}
   .project-media{min-height:230px;background:linear-gradient(135deg,#f1f3fb,#f8f6ee);position:relative}
   .project-media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+  .visual-card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#f8f9ff,#f8f6ee)}
+  .runtime-visual,.discord-visual{width:100%;height:100%;display:flex;flex-direction:column;gap:14px;justify-content:center}
+  .channel-row,.command-row{display:flex;flex-wrap:wrap;gap:8px}
+  .channel-chip,.command-chip{border:1px solid var(--accent-line);background:#fff;color:var(--accent);font-size:12px;font-weight:750;border-radius:999px;padding:6px 10px}
+  .flow-arrow{height:2px;background:linear-gradient(90deg,var(--accent),rgba(37,84,232,0));position:relative}
+  .flow-arrow:after{content:"";position:absolute;right:0;top:-4px;border-left:8px solid var(--accent);border-top:5px solid transparent;border-bottom:5px solid transparent}
+  .graph-box,.discord-box{border:1px solid var(--border-strong);border-radius:14px;background:rgba(255,255,255,.86);padding:14px;box-shadow:0 14px 30px -26px rgba(20,20,15,.4)}
+  .graph-box strong,.discord-box strong{display:block;color:var(--text);font-size:14px;margin-bottom:8px}
+  .graph-box span,.discord-box span{display:block;color:var(--muted);font-size:12px;line-height:1.55}
+  .status-stack{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .status-mini{border:1px solid var(--border);border-radius:10px;padding:9px;background:#fff;font-size:12px;color:var(--muted)}
+  .status-mini b{display:block;color:var(--accent);font-size:13px}
   .project-body{padding:24px}
   .project-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--soft);margin-bottom:8px}
   .project-body h3{font-size:20px;font-weight:750}
@@ -117,6 +135,8 @@
 </style>
 </head>
 <body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div id="cursor-dot" aria-hidden="true"></div>
 <div class="page">
   <div class="layout">
     <aside class="sidebar">
@@ -158,8 +178,8 @@
         <p class="lede">I build messaging bots and bot backends around the parts that matter in real use: platform-specific payloads, webhooks, conversation state, approval queues, LLM fallback behavior, and operational visibility.</p>
         <p class="lede">This page is targeted at bot-development roles such as WhatsApp Business API, Telegram Bot API, Discord API, Slack, LLM workflow, and webhook automation work.</p>
         <div class="hero-actions">
-          <a class="pill primary" href="#demo">Watch 4:30 demo</a>
-          <a class="pill" href="https://cap.link/wev10nak3j6y2cw" target="_blank" rel="noopener">Open Cap recording</a>
+          <a class="pill primary" href="#demo">Watch demo</a>
+          <a class="pill" href="https://youtu.be/hBkcg5dF5OI" target="_blank" rel="noopener">Open YouTube recording</a>
           <a class="pill" href="../assets/yegor-brusnyak-cv.pdf" target="_blank" rel="noopener">CV PDF</a>
         </div>
         <div class="proof-strip" aria-label="Proof summary">
@@ -177,11 +197,11 @@
         </div>
         <div class="video-frame">
           <div class="video-aspect">
-            <iframe src="https://cap.so/embed/wev10nak3j6y2cw" title="Bot Demo by Yegor Brusnyak" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/hBkcg5dF5OI" title="Bot development demo by Yegor Brusnyak" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="video-caption">
-            <p>4:30 walkthrough: channel runtime, Telegram, Discord, WhatsApp-style webhook/operator proof, and the honest production boundary.</p>
-            <a class="pill" href="https://cap.link/wev10nak3j6y2cw" target="_blank" rel="noopener">Open video</a>
+            <p>Short walkthrough: channel runtime, Telegram, Discord, WhatsApp-style webhook/operator proof, and the honest production boundary.</p>
+            <a class="pill" href="https://youtu.be/hBkcg5dF5OI" target="_blank" rel="noopener">Open video</a>
           </div>
         </div>
       </section>
@@ -193,7 +213,27 @@
         </div>
         <div class="project-grid">
           <article class="project-card">
-            <div class="project-media"><img src="../assets/bot/messaging-ops-desktop.png" alt="Messaging Bot Ops Lab dashboard"></div>
+            <div class="project-media">
+              <div class="visual-card" aria-hidden="true">
+                <div class="runtime-visual">
+                  <div class="channel-row">
+                    <span class="channel-chip">Telegram</span>
+                    <span class="channel-chip">Discord</span>
+                    <span class="channel-chip">Slack</span>
+                    <span class="channel-chip">WhatsApp</span>
+                  </div>
+                  <div class="flow-arrow"></div>
+                  <div class="graph-box">
+                    <strong>Shared State Graph</strong>
+                    <span>Normalize event, route intent, run tool, draft reply, log result.</span>
+                  </div>
+                  <div class="status-stack">
+                    <div class="status-mini"><b>JSONL</b>audit trail</div>
+                    <div class="status-mini"><b>Gate</b>human review</div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="project-body">
               <div class="project-meta"><span>Primary proof</span><span>·</span><span>Node runtime</span></div>
               <h3>Channel Agent Runtime</h3>
@@ -221,7 +261,26 @@
           </article>
 
           <article class="project-card">
-            <div class="project-media"><img src="../assets/bot/messaging-ops-mobile.png" alt="Mobile view of messaging bot operator dashboard"></div>
+            <div class="project-media">
+              <div class="visual-card" aria-hidden="true">
+                <div class="discord-visual">
+                  <div class="command-row">
+                    <span class="command-chip">/demo_incident</span>
+                    <span class="command-chip">/ticket</span>
+                    <span class="command-chip">/warn</span>
+                    <span class="command-chip">/ask</span>
+                  </div>
+                  <div class="discord-box">
+                    <strong>Moderation Queue</strong>
+                    <span>Warning ladder, ticket state, case history, audit log, optional LLM assist.</span>
+                  </div>
+                  <div class="status-stack">
+                    <div class="status-mini"><b>Cases</b>SQLite log</div>
+                    <div class="status-mini"><b>Safe</b>demo mode</div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="project-body">
               <div class="project-meta"><span>Discord API</span><span>·</span><span>Moderation</span></div>
               <h3>Discord Moderation Bot</h3>
@@ -235,7 +294,7 @@
           </article>
 
           <article class="project-card">
-            <div class="project-media"><img src="../assets/bot/real-call-lab-desktop.png" alt="Real call recovery lab dashboard"></div>
+            <div class="project-media"><img src="../assets/bot/messaging-ops-desktop.png" alt="Messaging Bot Ops Lab dashboard"></div>
             <div class="project-body">
               <div class="project-meta"><span>Webhook lab</span><span>·</span><span>Operator workflow</span></div>
               <h3>Messaging Bot Ops Lab</h3>
@@ -244,6 +303,20 @@
               <div class="project-links">
                 <a href="https://github.com/brusnyak/jobiz/tree/main/apps/messaging-bot-ops-lab" target="_blank" rel="noopener">Code path</a>
                 <a href="#boundaries">Production boundary</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media"><img src="../assets/bot/lingonberry-journal.png" alt="Lingonberry Journal dashboard session overview"></div>
+            <div class="project-body">
+              <div class="project-meta"><span>Supporting proof</span><span>·</span><span>Bot-connected product</span></div>
+              <h3>Lingonberry Journal</h3>
+              <p class="desc">Trading journal product with Telegram bot commands, web dashboard, analytics, TradeLocker integration, and Telegram Mini App style workflow. Useful proof that bot actions can connect to real stored workflow state, not just chat demos.</p>
+              <div class="tags"><span>Telegram bot</span><span>Web dashboard</span><span>Analytics</span><span>TradeLocker</span><span>Workflow state</span></div>
+              <div class="project-links">
+                <a href="https://github.com/brusnyak/lingonberry_journal" target="_blank" rel="noopener">GitHub</a>
+                <a href="#fit">Supporting workflow proof</a>
               </div>
             </div>
           </article>
@@ -323,5 +396,119 @@
     </main>
   </div>
 </div>
+<script>
+  const cursorDot = document.getElementById('cursor-dot');
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+
+  window.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    cursorDot.style.left = `${mouseX}px`;
+    cursorDot.style.top = `${mouseY}px`;
+  }, { passive: true });
+
+  window.addEventListener('mousedown', () => {
+    cursorDot.style.transform = 'translate(-50%,-50%) scale(.72)';
+    const ripple = document.createElement('span');
+    ripple.className = 'cursor-ripple';
+    ripple.style.left = `${mouseX}px`;
+    ripple.style.top = `${mouseY}px`;
+    document.body.appendChild(ripple);
+    window.setTimeout(() => ripple.remove(), 520);
+  });
+
+  window.addEventListener('mouseup', () => {
+    cursorDot.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = Math.floor(window.innerWidth * ratio);
+    canvas.height = Math.floor(window.innerHeight * ratio);
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+
+  function makeParticles() {
+    const count = Math.min(70, Math.max(36, Math.floor(window.innerWidth / 22)));
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - .5) * .22,
+      vy: (Math.random() - .5) * .22,
+      r: Math.random() * 1.5 + .7
+    }));
+  }
+
+  function drawBackground() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -20) p.x = window.innerWidth + 20;
+      if (p.x > window.innerWidth + 20) p.x = -20;
+      if (p.y < -20) p.y = window.innerHeight + 20;
+      if (p.y > window.innerHeight + 20) p.y = -20;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(37,84,232,.18)';
+      ctx.fill();
+    });
+
+    for (let i = 0; i < particles.length; i += 1) {
+      for (let j = i + 1; j < particles.length; j += 1) {
+        const a = particles[i];
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.strokeStyle = `rgba(37,84,232,${(1 - dist / 120) * .08})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(drawBackground);
+  }
+
+  resizeCanvas();
+  makeParticles();
+  drawBackground();
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    makeParticles();
+  });
+
+  const sectionLinks = [...document.querySelectorAll('.side-nav a[href^="#"]')];
+  const sections = sectionLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  function setActiveSection() {
+    const current = sections.reduce((active, section) => {
+      const rect = section.getBoundingClientRect();
+      return rect.top <= 160 ? section.id : active;
+    }, sections[0]?.id);
+
+    sectionLinks.forEach((link) => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    });
+  }
+
+  setActiveSection();
+  window.addEventListener('scroll', setActiveSection, { passive: true });
+</script>
 </body>
 </html>
