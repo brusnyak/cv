@@ -8,6 +8,7 @@
 <meta property="og:description" content="Real-time voice agents, LLM-powered tools, and automation that touches real users and real data.">
 <meta property="og:image" content="assets/yegor-portrait.jpg">
 <meta name="theme-color" content="#faf9f7">
+<link rel="stylesheet" href="assets/cv-framework.css">
 <title>Yegor Brusnyak — Full-Stack AI Engineer</title>
 <style>
   :root{
@@ -33,29 +34,9 @@
     font-family:var(--sans);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    cursor:none;
   }
   a{color:inherit;text-decoration:none}
   p,h1,h2,h3{margin:0}
-  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-  #cursor-dot{
-    position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;
-    background:var(--accent);pointer-events:none;z-index:9999;
-    transform:translate(-50%,-50%);
-    transition:transform .12s ease-out;
-    mix-blend-mode:multiply;
-  }
-  @media (hover:none){ body{cursor:auto} #cursor-dot{display:none} }
-  .cursor-ripple{
-    position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;
-    border:1.5px solid var(--accent);pointer-events:none;z-index:9998;
-    transform:translate(-50%,-50%);
-    animation:ripple .5s ease-out forwards;
-  }
-  @keyframes ripple{
-    from{width:14px;height:14px;opacity:0.7}
-    to{width:46px;height:46px;opacity:0}
-  }
 
   /* ---- project review modal ---- */
   .modal-overlay{
@@ -208,8 +189,6 @@
     aside.sidebar{width:100%;min-width:0;position:relative;height:auto;padding:44px 0 32px}
     main.content{width:100%;padding:0 0 90px}
     .what-grid{grid-template-columns:1fr}
-    body{cursor:auto}
-    #cursor-dot{display:none}
   }
 </style>
 </head>
@@ -425,193 +404,9 @@
   </div>
 </div>
 
+<script src="assets/cv-framework.js"></script>
 <script>
 (function(){
-  var canvas = document.getElementById('bg-canvas');
-  var ctx = canvas.getContext('2d');
-  var w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
-  var docH = window.innerHeight;
-  var nodes = [];
-  var mouse = { x: null, y: null, active:false };
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cursorDot = document.getElementById('cursor-dot');
-
-  /* Canvas is position:fixed and sized to the VIEWPORT only (a fixed element never scrolls,
-     so sizing it to the full page and drawing raw document coordinates just hides everything
-     past one screen height). Nodes live in document-space (0..docH); every frame we draw them
-     at node.y - scrollY, which is what actually makes them visible while scrolling. */
-  function resize(){
-    w = window.innerWidth;
-    var newDocH = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, window.innerHeight);
-    var grew = newDocH > docH;
-    docH = newDocH;
-
-    canvas.width = w * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = w + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-
-    var count = Math.max(160, Math.min(340, Math.round((w*docH)/7000)));
-    if (nodes.length === 0){
-      nodes = [];
-      for (var i=0;i<count;i++) nodes.push(makeNode());
-    } else if (grew){
-      while (nodes.length < count) nodes.push(makeNode());
-    }
-  }
-
-  function makeNode(){
-    return {
-      x: Math.random()*w,
-      y: Math.random()*docH,
-      vx: (Math.random()-0.5)*0.3,
-      vy: (Math.random()-0.5)*0.3,
-      z: 0.35 + Math.random()*0.65
-    };
-  }
-
-  function step(){
-    var vw = window.innerWidth, vh = window.innerHeight;
-    ctx.clearRect(0,0,vw,vh);
-    var linkDist = 140;
-    var scrollY = window.scrollY;
-    var mx = mouse.active ? mouse.x : null;
-    var my = mouse.active ? mouse.y : null; /* already viewport-space */
-
-    for (var i=0;i<nodes.length;i++){
-      var n = nodes[i];
-      /* gentle constant drift, never damped to a stop */
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0){ n.x = 0; n.vx *= -1; }
-      if (n.x > w){ n.x = w; n.vx *= -1; }
-      if (n.y < 0){ n.y = 0; n.vy *= -1; }
-      if (n.y > docH){ n.y = docH; n.vy *= -1; }
-
-      /* tiny random jitter keeps motion organic instead of settling into straight lines */
-      n.vx += (Math.random()-0.5)*0.006;
-      n.vy += (Math.random()-0.5)*0.006;
-      var speed = Math.sqrt(n.vx*n.vx+n.vy*n.vy);
-      var maxSpeed = 0.45;
-      if (speed > maxSpeed){ n.vx = n.vx/speed*maxSpeed; n.vy = n.vy/speed*maxSpeed; }
-
-      if (mx !== null){
-        var dx = n.x - mx, dy = (n.y - scrollY) - my;
-        var d = Math.sqrt(dx*dx+dy*dy);
-        if (d < 160 && d > 0.01){
-          var f = (160-d)/160*0.05;
-          n.vx += (dx/d)*f;
-          n.vy += (dy/d)*f;
-        }
-      }
-    }
-
-    var buffer = 60;
-    for (var i=0;i<nodes.length;i++){
-      var a = nodes[i];
-      var ay = a.y - scrollY;
-      if (ay < -buffer || ay > vh+buffer) continue;
-
-      for (var j=i+1;j<nodes.length;j++){
-        var b = nodes[j];
-        var by = b.y - scrollY;
-        if (by < -buffer || by > vh+buffer) continue;
-        var dx = a.x-b.x, dy = ay-by;
-        var dist = Math.sqrt(dx*dx+dy*dy);
-        if (dist < linkDist){
-          var op = (1 - dist/linkDist) * 0.10 * ((a.z+b.z)/2);
-          ctx.strokeStyle = 'rgba(37,84,232,'+op+')';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x,ay);
-          ctx.lineTo(b.x,by);
-          ctx.stroke();
-        }
-      }
-
-      /* brighten + grow near the cursor */
-      var glow = 0;
-      if (mx !== null){
-        var cdx = a.x-mx, cdy = ay-my;
-        var cdist = Math.sqrt(cdx*cdx+cdy*cdy);
-        if (cdist < 200) glow = (1 - cdist/200);
-      }
-      ctx.beginPath();
-      ctx.arc(a.x,ay,(1.4*a.z+0.6)+glow*2.6,0,Math.PI*2);
-      ctx.fillStyle = 'rgba(37,84,232,'+Math.min(1,(0.18*a.z+0.06)+glow*0.75)+')';
-      ctx.fill();
-    }
-
-    /* neuron-style cursor connections */
-    if (mx !== null){
-      var cursorLinkDist = 190;
-      for (var i=0;i<nodes.length;i++){
-        var n = nodes[i];
-        var ny = n.y - scrollY;
-        var dx = n.x-mx, dy = ny-my;
-        var dist = Math.sqrt(dx*dx+dy*dy);
-        if (dist < cursorLinkDist){
-          var op = (1 - dist/cursorLinkDist) * 0.55;
-          ctx.strokeStyle = 'rgba(37,84,232,'+op+')';
-          ctx.lineWidth = 1.1;
-          ctx.beginPath();
-          ctx.moveTo(mx,my);
-          ctx.lineTo(n.x,ny);
-          ctx.stroke();
-        }
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  window.addEventListener('resize', resize);
-  window.addEventListener('scroll', function(){}, {passive:true});
-  window.addEventListener('mousemove', function(e){
-    mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
-    cursorDot.style.left = e.clientX+'px'; cursorDot.style.top = e.clientY+'px';
-  });
-  window.addEventListener('mouseleave', function(){ mouse.active = false; });
-
-  /* click ripple on the custom cursor */
-  window.addEventListener('mousedown', function(e){
-    var ripple = document.createElement('div');
-    ripple.className = 'cursor-ripple';
-    ripple.style.left = e.clientX+'px';
-    ripple.style.top = e.clientY+'px';
-    document.body.appendChild(ripple);
-    ripple.addEventListener('animationend', function(){ ripple.remove(); });
-    cursorDot.style.transform = 'translate(-50%,-50%) scale(0.6)';
-  });
-  window.addEventListener('mouseup', function(){
-    cursorDot.style.transform = 'translate(-50%,-50%) scale(1)';
-  });
-
-  resize();
-  step();
-
-  /* re-measure page height once images/fonts finish loading, and whenever layout height changes */
-  window.addEventListener('load', resize);
-  if (window.ResizeObserver){
-    new ResizeObserver(resize).observe(document.body);
-  } else {
-    setTimeout(resize, 800);
-    setTimeout(resize, 2000);
-  }
-
-  /* active nav highlight */
-  var navLinks = document.querySelectorAll('.side-nav a');
-  var sections = Array.prototype.map.call(navLinks, function(a){ return document.querySelector(a.getAttribute('href')); });
-  function onScroll(){
-    var pos = window.scrollY + 140;
-    var idx = 0;
-    for (var i=0;i<sections.length;i++){ if (sections[i] && sections[i].offsetTop <= pos) idx = i; }
-    navLinks.forEach(function(a,i){ a.classList.toggle('active', i===idx); });
-  }
-  window.addEventListener('scroll', onScroll);
-  onScroll();
-
   /* project card review modal */
   var overlay = document.getElementById('project-modal');
   var modalContent = document.getElementById('modal-content');

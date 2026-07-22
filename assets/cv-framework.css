@@ -1,0 +1,20 @@
+body{cursor:none}
+#bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#cursor-dot{
+  position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;
+  background:var(--accent);pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .12s ease-out;
+  mix-blend-mode:multiply;
+}
+.cursor-ripple{
+  position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;
+  border:1.5px solid var(--accent);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  animation:ripple .5s ease-out forwards;
+}
+@keyframes ripple{
+  from{width:14px;height:14px;opacity:.7}
+  to{width:46px;height:46px;opacity:0}
+}
+@media (hover:none){body{cursor:auto}#cursor-dot{display:none}}

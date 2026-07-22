@@ -9,6 +9,7 @@
 <meta property="og:image" content="../assets/bot/messaging-ops-desktop.png">
 <meta name="theme-color" content="#faf9f7">
 <link rel="icon" href="data:,">
+<link rel="stylesheet" href="../assets/cv-framework.css">
 <title>Yegor Brusnyak - Messaging Bot Developer</title>
 <style>
   :root{
@@ -27,14 +28,9 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;cursor:none}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   p,h1,h2,h3{margin:0}
-  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-  #cursor-dot{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s ease-out;mix-blend-mode:multiply}
-  @media (hover:none){body{cursor:auto}#cursor-dot{display:none}}
-  .cursor-ripple{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);animation:ripple .5s ease-out forwards}
-  @keyframes ripple{from{width:14px;height:14px;opacity:.7}to{width:46px;height:46px;opacity:0}}
   .page{max-width:1440px;margin:0 auto;padding:0 56px;position:relative;z-index:1}
   .layout{display:flex;gap:72px}
   aside.sidebar{width:38%;min-width:320px;flex-shrink:0;position:sticky;top:0;align-self:flex-start;height:100vh;padding:72px 0;display:flex;flex-direction:column;justify-content:space-between}
@@ -180,7 +176,7 @@
         <div class="hero-actions">
           <a class="pill primary" href="#demo">Watch demo</a>
           <a class="pill" href="https://youtu.be/hBkcg5dF5OI" target="_blank" rel="noopener">Open YouTube recording</a>
-          <a class="pill" href="../assets/yegor-brusnyak-cv.pdf" target="_blank" rel="noopener">CV PDF</a>
+          <a class="pill" href="../assets/yegor-brusnyak-bot-cv.pdf" target="_blank" rel="noopener">Bot CV PDF</a>
         </div>
         <div class="proof-strip" aria-label="Proof summary">
           <div class="proof-stat"><strong>4</strong><span>channel families shown</span></div>
@@ -396,119 +392,6 @@
     </main>
   </div>
 </div>
-<script>
-  const cursorDot = document.getElementById('cursor-dot');
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-
-  window.addEventListener('mousemove', (event) => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-    cursorDot.style.left = `${mouseX}px`;
-    cursorDot.style.top = `${mouseY}px`;
-  }, { passive: true });
-
-  window.addEventListener('mousedown', () => {
-    cursorDot.style.transform = 'translate(-50%,-50%) scale(.72)';
-    const ripple = document.createElement('span');
-    ripple.className = 'cursor-ripple';
-    ripple.style.left = `${mouseX}px`;
-    ripple.style.top = `${mouseY}px`;
-    document.body.appendChild(ripple);
-    window.setTimeout(() => ripple.remove(), 520);
-  });
-
-  window.addEventListener('mouseup', () => {
-    cursorDot.style.transform = 'translate(-50%,-50%) scale(1)';
-  });
-
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-
-  function resizeCanvas() {
-    const ratio = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(window.innerWidth * ratio);
-    canvas.height = Math.floor(window.innerHeight * ratio);
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  }
-
-  function makeParticles() {
-    const count = Math.min(70, Math.max(36, Math.floor(window.innerWidth / 22)));
-    particles = Array.from({ length: count }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      vx: (Math.random() - .5) * .22,
-      vy: (Math.random() - .5) * .22,
-      r: Math.random() * 1.5 + .7
-    }));
-  }
-
-  function drawBackground() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    particles.forEach((p) => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < -20) p.x = window.innerWidth + 20;
-      if (p.x > window.innerWidth + 20) p.x = -20;
-      if (p.y < -20) p.y = window.innerHeight + 20;
-      if (p.y > window.innerHeight + 20) p.y = -20;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(37,84,232,.18)';
-      ctx.fill();
-    });
-
-    for (let i = 0; i < particles.length; i += 1) {
-      for (let j = i + 1; j < particles.length; j += 1) {
-        const a = particles[i];
-        const b = particles[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          ctx.strokeStyle = `rgba(37,84,232,${(1 - dist / 120) * .08})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    requestAnimationFrame(drawBackground);
-  }
-
-  resizeCanvas();
-  makeParticles();
-  drawBackground();
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    makeParticles();
-  });
-
-  const sectionLinks = [...document.querySelectorAll('.side-nav a[href^="#"]')];
-  const sections = sectionLinks
-    .map((link) => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
-
-  function setActiveSection() {
-    const current = sections.reduce((active, section) => {
-      const rect = section.getBoundingClientRect();
-      return rect.top <= 160 ? section.id : active;
-    }, sections[0]?.id);
-
-    sectionLinks.forEach((link) => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
-  }
-
-  setActiveSection();
-  window.addEventListener('scroll', setActiveSection, { passive: true });
-</script>
+<script src="../assets/cv-framework.js"></script>
 </body>
 </html>
