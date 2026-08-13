@@ -1,0 +1,23 @@
+body{cursor:none}
+a,button{cursor:none}
+.pdf-download,.theme-toggle{cursor:none}
+#bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;top:0;left:0}
+#cursor-dot{
+  position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:transform .08s ease-out;
+  box-shadow:0 0 8px rgba(37,84,232,0.6),inset 0 0 4px rgba(255,255,255,0.4);
+  opacity:1;visibility:visible;
+}
+.cursor-ripple{
+  position:fixed;top:0;left:0;width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--accent);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  animation:ripple .65s ease-out forwards;
+}
+@keyframes ripple{
+  from{width:16px;height:16px;opacity:.8}
+  to{width:132px;height:132px;opacity:0}
+}
+@media (hover:none){body{cursor:auto}#cursor-dot{display:none}}
