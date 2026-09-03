@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
-MAIN_HTML = ROOT / "index.html"
+MAIN_HTML = ROOT / "cv-print.html"
 BOT_HTML = ROOT / "bot" / "index.html"
 MAIN_PDF = ASSETS / "yegor-brusnyak-cv.pdf"
 BOT_PDF = ASSETS / "yegor-brusnyak-bot-cv.pdf"

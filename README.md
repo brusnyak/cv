@@ -29,6 +29,7 @@ Applied AI engineer portfolio. Interactive website, printable PDF CV, and linked
 ```
 cv/
 ├── index.html              # Portfolio website (single page)
+├── cv-print.html           # Print-only A4 CV — source of the main PDF
 ├── README.md               # This file
 ├── assets/                 # Images, PDFs, styles, scripts
 │   ├── yegor-brusnyak-cv.pdf
@@ -72,7 +73,7 @@ python3 scripts/build_pdfs.py --bot     # bot CV only
 python3 scripts/build_pdfs.py --serve   # build via local HTTP server (for JS-heavy pages)
 ```
 
-**How it works:** `scripts/build_pdfs.py` loads the HTML page in headless Chromium and exports it as an A4 PDF using Playwright's `page.pdf()`. The HTML includes `@media print` CSS that strips interactive elements and optimises the layout for print. Update the HTML, re-run the script, and the PDF is in sync — no manual maintenance.
+**How it works:** `scripts/build_pdfs.py` loads each source page in headless Chromium and exports it as an A4 PDF — the main CV from `cv-print.html` (single-column, ATS-friendly), the bot CV from `bot/index.html`. Update the source, re-run the script, and the PDF is in sync — no manual maintenance. The portfolio site (`index.html`) is for browsing, not for print.
 
 ### Deploy
 

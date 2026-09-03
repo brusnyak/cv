@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yegor Brusnyak — CV</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#555; --accent:#1a3fd4; --line:#ddd; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.42; background:#f4f4f4; }
+  .page{ max-width:800px; margin:0 auto; background:#fff; padding:36px 44px; }
+  header h1{ font-size:26px; letter-spacing:-0.01em; }
+  header .role{ color:var(--accent); font-weight:700; margin-top:2px; }
+  header .contact{ font-size:12px; color:var(--muted); margin-top:6px; }
+  header .contact a{ color:inherit; text-decoration:none; }
+  section{ margin-top:16px; }
+  h2{ font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:3px; margin-bottom:8px; }
+  p.summary{ font-size:13.5px; }
+  .item{ margin-top:9px; }
+  .item-head{ display:flex; justify-content:space-between; gap:12px; font-weight:700; font-size:13.5px; }
+  .item-meta{ font-weight:400; color:var(--muted); font-size:12px; white-space:nowrap; }
+  .item-sub{ font-size:12.5px; color:var(--muted); }
+  ul{ margin:4px 0 0 17px; font-size:13px; }
+  li{ margin-top:2px; }
+  .skill-line{ font-size:13px; margin-top:3px; }
+  .skill-line b{ display:inline-block; min-width:150px; }
+  a{ color:inherit; }
+  @page{ size:A4; margin:13mm 14mm; }
+  @media print{
+    body{ background:#fff; }
+    .page{ max-width:none; margin:0; padding:0; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header>
+    <h1>Yegor Brusnyak</h1>
+    <p class="role">AI Engineer</p>
+    <p class="contact">brusnyakyegor@gmail.com · github.com/brusnyak · linkedin.com/in/yegor-brusnyak · Bratislava, Slovakia · Remote-first · Available immediately</p>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">Applied AI engineer. I design and ship voice agents, LLM-powered tools, and automation end to end — 4 systems built and deployed, from concept to working software. B.Sc. in Computer Science, expected 2027.</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <p class="skill-line"><b>AI &amp; Voice</b> LLM APIs and orchestration, RAG and embeddings, prompt design, voice and speech pipelines, agent workflows</p>
+    <p class="skill-line"><b>Languages &amp; Back End</b> Python, TypeScript, Node.js, SQL · FastAPI, PostgreSQL, Supabase, WebSockets</p>
+    <p class="skill-line"><b>Front End</b> React, Next.js, JavaScript, Tailwind CSS</p>
+    <p class="skill-line"><b>Infrastructure</b> Docker, Linux, GitHub Actions, Vercel, Stripe</p>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="item">
+      <div class="item-head"><span>Recareo — AI voice-recall system</span><span class="item-meta">github.com/brusnyak · recareo.uk</span></div>
+      <ul><li>Voice agent that rebooks lapsed dental patients automatically; patient enrichment, conversion-focused site, Stripe billing. Shipped end to end.</li></ul>
+    </div>
+    <div class="item">
+      <div class="item-head"><span>AI Recruitment Copilot — candidate–job matching</span><span class="item-meta">github.com/brusnyak/ai-recruitment-copilot</span></div>
+      <ul><li>CV/JD parsing, pgvector semantic retrieval, LLM fit scoring, and an automated eval harness (12 labeled pairs, regression tracking). Shipped end to end.</li></ul>
+    </div>
+    <div class="item">
+      <div class="item-head"><span>AgentOps Control Room — AI outbound workflows</span><span class="item-meta">github.com/brusnyak/agentops-control-room</span></div>
+      <ul><li>Configurable multi-channel workflow engine with run versioning, regression checks, and observability. Shipped end to end.</li></ul>
+    </div>
+    <div class="item">
+      <div class="item-head"><span>Real-Time Speech Translation — bachelor thesis</span><span class="item-meta">github.com/brusnyak/bp</span></div>
+      <ul><li>Live speech translation with voice cloning for online conferences; local STT/translation/TTS over streaming audio. In progress.</li></ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="item">
+      <div class="item-head"><span>Independent AI Engineer &amp; Product Builder</span><span class="item-meta">2025 – Present · Remote</span></div>
+      <ul>
+        <li>Design and ship AI systems end to end — voice agents, document parsing, lead enrichment, outbound workflow tooling.</li>
+        <li>Stack: FastAPI, React/Next.js, LLM APIs, PostgreSQL, Stripe.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="item">
+      <div class="item-head"><span>Slovak University of Technology (FEI STU), Bratislava</span><span class="item-meta">Expected 2027</span></div>
+      <p class="item-sub">B.Sc., Information &amp; Communication Technologies — Computer Science. Thesis: Real-Time Speech Translation During Online Conferences.</p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
