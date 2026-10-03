@@ -7,52 +7,32 @@
   :root{ --ink:#191817; --muted:#5a5751; --accent:#2554e8; --line:#dcd9d2; --band:#eef2ff; }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ width:210mm; }
-  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.4; background:#fff; font-size:10.3pt; }
+  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.4; background:#fff; font-size:10pt; }
   .page{ width:210mm; min-height:297mm; margin:0 auto; background:#fff; }
 
-  /* Header band */
-  .band{ background:var(--band); padding:9mm 12mm 7mm; display:flex; align-items:center; gap:7mm; border-bottom:0.4mm solid #d7ddf5; }
-  .band .portrait{ width:27mm; height:27mm; border-radius:50%; overflow:hidden; flex-shrink:0; border:0.6mm solid #ffffff; box-shadow:0 0 0 0.3mm #c7d0f0; }
+  .band{ background:var(--band); padding:8mm 14mm 6mm; display:flex; align-items:center; gap:7mm; border-bottom:0.4mm solid #d7ddf5; }
+  .band .portrait{ width:25mm; height:25mm; border-radius:50%; overflow:hidden; flex-shrink:0; border:0.6mm solid #ffffff; box-shadow:0 0 0 0.3mm #c7d0f0; }
   .band .portrait img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .band .id h1{ font-size:22pt; font-weight:700; letter-spacing:-0.01em; }
-  .band .id .role{ color:var(--accent); font-weight:700; font-size:12pt; margin-top:1mm; }
-  .band .id .contact{ font-size:9pt; color:var(--muted); margin-top:2.8mm; }
-  .band .id .contact a{ color:inherit; text-decoration:none; }
+  .band .id h1{ font-size:21pt; font-weight:700; letter-spacing:-0.01em; }
+  .band .id .role{ color:var(--accent); font-weight:700; font-size:11.5pt; margin-top:1mm; }
+  .band .id .contact{ font-size:8.8pt; color:var(--muted); margin-top:2.4mm; }
 
-  /* Body grid */
-  .grid{ display:flex; }
-  aside{ width:33%; background:#faf9f7; padding:7mm 6mm 10mm 12mm; border-right:0.3mm solid var(--line); }
-  .main{ width:67%; padding:7mm 12mm 10mm 8mm; }
-
-  h2{ font-size:9.5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent);
-      border-bottom:0.6mm solid var(--accent); padding-bottom:1.2mm; margin:6mm 0 3mm; }
-  h2:first-child{ margin-top:0; }
-
-  .side-block{ font-size:9.7pt; }
-  .side-block b.cat{ display:block; margin-top:3.5mm; font-size:9.7pt; font-weight:700; }
-  .side-block b.cat:first-child{ margin-top:0; }
-  .side-block span{ color:var(--muted); }
-
-  .edu b{ display:block; font-size:10pt; font-weight:700; }
-  .edu .sub{ display:block; font-size:9.3pt; color:var(--muted); margin-top:1mm; }
-  .edu .thesis{ display:block; font-size:9.3pt; color:var(--muted); font-style:italic; margin-top:1.5mm; }
-
-  .lang-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:9.8pt; margin-top:2.2mm; }
-  .lang-row:first-of-type{ margin-top:0; }
-  .lang-row .lvl{ font-size:8.6pt; color:var(--muted); }
-
-  .summary{ font-size:10.6pt; color:#2a2a2a; }
-  .item{ margin-top:4.5mm; }
-  .item-head{ display:flex; justify-content:space-between; gap:4mm; font-weight:700; font-size:10.8pt; }
-  .item-meta{ font-weight:400; color:var(--muted); font-size:9pt; white-space:nowrap; }
-  .item p{ font-size:9.8pt; color:#2a2a2a; margin-top:1.2mm; }
+  .main{ padding:3mm 14mm 10mm; }
+  h2{ font-size:9.3pt; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent);
+      border-bottom:0.5mm solid var(--accent); padding-bottom:1mm; margin:5mm 0 2.6mm; }
+  .summary{ font-size:10.3pt; color:#2a2a2a; }
+  .item{ margin-top:3.6mm; }
+  .item-head{ display:flex; justify-content:space-between; gap:4mm; font-weight:700; font-size:10.4pt; }
+  .item-meta{ font-weight:400; color:var(--muted); font-size:8.8pt; text-align:right; }
+  .item ul{ margin:1mm 0 0 4.5mm; }
+  .item li{ font-size:9.7pt; color:#2a2a2a; margin-top:0.8mm; }
+  .item p{ font-size:9.7pt; color:#2a2a2a; margin-top:1mm; }
+  .row{ font-size:9.7pt; margin-top:1.2mm; }
+  .row b{ font-weight:700; }
+  .row span{ color:var(--muted); }
 
   @page{ size:A4; margin:0; }
-  @media print{
-    body{ background:#fff; }
-    .band{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    aside{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  }
+  @media print{ .band{ -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
 </style>
 </head>
 <body>
@@ -62,69 +42,49 @@
     <div class="portrait"><img src="assets/yegor-portrait-2.png" alt="Yegor Brusnyak"></div>
     <div class="id">
       <h1>Yegor Brusnyak</h1>
-      <p class="role">Applied AI Engineer</p>
-      <p class="contact">brusnyakyegor@gmail.com · github.com/brusnyak · linkedin.com/in/yegor-brusnyak · Bratislava, Slovakia · Available immediately</p>
+      <p class="role">AI Engineer — speech, LLM evaluation &amp; automation</p>
+      <p class="contact">brusnyakyegor@gmail.com · https://github.com/brusnyak · https://linkedin.com/in/yegor-brusnyak · Bratislava, Slovakia · Open to junior / working-student AI roles and freelance projects</p>
     </div>
   </div>
 
-  <div class="grid">
-    <aside>
-      <h2>Skills</h2>
-      <div class="side-block">
-        <b class="cat">AI &amp; Voice</b>
-        <span>LLM APIs, RAG &amp; embeddings, prompt design, agent workflows, speech pipelines (Whisper, STT/TTS, Retell/ElevenLabs)</span>
-        <b class="cat">Back End</b>
-        <span>Python, TypeScript, Node.js, SQL · FastAPI, PostgreSQL, Supabase, pgvector, WebSockets</span>
-        <b class="cat">Front End</b>
-        <span>React, Next.js, JavaScript, Tailwind CSS</span>
-        <b class="cat">Tools &amp; Infra</b>
-        <span>Git, Docker, Linux, pytest, Vercel, Stripe, API integrations</span>
-      </div>
+  <div class="main">
+    <h2>Summary</h2>
+    <p class="summary">B.Sc. candidate (STU Bratislava, 2027) who builds voice and LLM systems and measures whether they actually work: accuracy, latency and load, on real GPUs, with the numbers published. My thesis system is benchmarked and open; earlier products taught me what customers will and will not pay for.</p>
 
-      <h2>Languages</h2>
-      <div class="side-block">
-        <div class="lang-row"><span>Ukrainian</span><span class="lvl">Native</span></div>
-        <div class="lang-row"><span>English</span><span class="lvl">Fluent</span></div>
-        <div class="lang-row"><span>Slovak</span><span class="lvl">Intermediate</span></div>
-        <div class="lang-row"><span>German</span><span class="lvl">Intermediate</span></div>
-      </div>
-
-      <h2>Education</h2>
-      <div class="edu">
-        <b>B.Sc. Computer Science — STU Bratislava (FEI)</b>
-        <span class="sub">Information &amp; Communication Technologies · expected 2027</span>
-        <span class="thesis">Thesis: Real-Time Speech Translation During Online Conferences</span>
-      </div>
-    </aside>
-
-    <div class="main">
-      <h2>Summary</h2>
-      <p class="summary">I design and ship voice agents, LLM-powered tools, and automation end to end — four systems built and deployed, from concept to working software.</p>
-
-      <h2>Projects</h2>
-      <div class="item">
-        <div class="item-head"><span>Recareo — AI voice-recall system</span><span class="item-meta">recareo.uk</span></div>
-        <p>Voice agent that rebooks lapsed dental patients automatically; lead-enrichment pipeline, conversion-focused site, Stripe billing. Live.</p>
-      </div>
-      <div class="item">
-        <div class="item-head"><span>AI Recruitment Copilot — candidate–job matching</span><span class="item-meta">github.com/brusnyak/ai-recruitment-copilot</span></div>
-        <p>CV/JD parsing into schema-validated JSON, pgvector semantic retrieval, LLM fit scoring, automated eval harness with regression tracking.</p>
-      </div>
-      <div class="item">
-        <div class="item-head"><span>AgentOps Control Room — AI outbound workflows</span><span class="item-meta">github.com/brusnyak/agentops-control-room</span></div>
-        <p>Configurable multi-channel workflow engine — run versioning, regression checks, LLM-judge evaluation, full observability.</p>
-      </div>
-      <div class="item">
-        <div class="item-head"><span>Real-Time Speech Translation — bachelor thesis</span><span class="item-meta">github.com/brusnyak/bp</span></div>
-        <p>Live speech translation with voice cloning for online conferences; local STT/MT/TTS models over a streaming audio pipeline.</p>
-      </div>
-
-      <h2>Experience</h2>
-      <div class="item">
-        <div class="item-head"><span>Independent AI Engineer &amp; Product Builder</span><span class="item-meta">2025 – Present · Remote</span></div>
-        <p>Voice agents, document parsing, lead enrichment, and outbound workflow tooling for real users. Stack: FastAPI, React/Next.js, LLM APIs, PostgreSQL, Stripe.</p>
-      </div>
+    <h2>Projects</h2>
+    <div class="item">
+      <div class="item-head"><span>Real-Time Speech Translation (bachelor thesis)</span><span class="item-meta">https://github.com/brusnyak/bp<br>https://brusnyak.github.io/bp/ (benchmark report)</span></div>
+      <ul>
+        <li>Slovak↔English live translation with voice cloning for online meetings: FastAPI, Whisper STT, Opus-MT, cloned-voice TTS (OmniVoice / X-Voice), streaming audio pipeline.</li>
+        <li>Measured on a Tesla T4: real-time factor 0.18–0.34 with a cloned voice; first translated audio in 1.1–2 s; one GPU worker serves about 12 meeting participants (p95 first audio 2.6 s), degrades at 16, collapses at 24.</li>
+        <li>Found the bottleneck (a single serialised TTS worker, ~85–90 % of compute). Slovak output quality judged by ear per setting; 38 automated tests; GPU and load benchmark report published.</li>
+      </ul>
     </div>
+    <div class="item">
+      <div class="item-head"><span>AI Recruitment Copilot</span><span class="item-meta">https://github.com/brusnyak/ai-recruitment-copilot</span></div>
+      <p>CV/JD parsing to schema-validated JSON, pgvector retrieval with re-ranking, LLM fit scoring, interview-question generation, LLM observability, automated eval harness (FastAPI + Next.js).</p>
+    </div>
+    <div class="item">
+      <div class="item-head"><span>AgentOps Control Room</span><span class="item-meta">https://github.com/brusnyak/agentops-control-room</span></div>
+      <p>Run engine for configurable voice/SMS/email outbound workflows with versioning, regression tracking and evaluation (FastAPI + Next.js).</p>
+    </div>
+    <div class="item">
+      <div class="item-head"><span>Recareo — AI voice-recall for dental clinics (retired)</span><span class="item-meta">2025–2026</span></div>
+      <p>Voice agent to rebook lapsed patients, lead-enrichment pipeline, Stripe billing. Demo tested with outreach; no paying customers, so I stopped it. Kept the pipeline code and the lesson: validate buyers before building.</p>
+    </div>
+
+    <h2>Skills</h2>
+    <p class="row"><b>AI / speech:</b> <span>LLM APIs, RAG &amp; embeddings, evaluation harnesses, Whisper STT, TTS, voice cloning, latency/load testing</span></p>
+    <p class="row"><b>Engineering:</b> <span>Python, TypeScript, FastAPI, PostgreSQL/pgvector, Supabase, Next.js/React, Docker, Linux, pytest, Stripe</span></p>
+
+    <h2>Education</h2>
+    <div class="item" style="margin-top:0">
+      <div class="item-head"><span>B.Sc. Computer Science, STU Bratislava (FEI)</span><span class="item-meta">expected 2027</span></div>
+      <p>Information &amp; Communication Technologies. Thesis: Real-Time Speech Translation During Online Conferences.</p>
+    </div>
+
+    <h2>Languages</h2>
+    <p class="row"><b>Ukrainian</b> <span>native</span> · <b>English</b> <span>fluent</span> · <b>Slovak</b> <span>B1</span> · <b>German</b> <span>A2</span></p>
   </div>
 
 </div>
