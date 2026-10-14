@@ -4,87 +4,135 @@
 <meta charset="UTF-8">
 <title>Yegor Brusnyak — CV</title>
 <style>
-  :root{ --ink:#191817; --muted:#5a5751; --accent:#2554e8; --line:#dcd9d2; --band:#eef2ff; }
+  :root{ --ink:#191817; --muted:#56534d; --accent:#2554e8; --line:#dcd9d2; --band:#eef2ff; }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ width:210mm; }
-  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.4; background:#fff; font-size:10pt; }
-  .page{ width:210mm; min-height:297mm; margin:0 auto; background:#fff; }
+  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.36; background:#fff; font-size:9.6pt; }
+  .page{ width:210mm; min-height:297mm; }
+  a{ color:inherit; text-decoration:none; }
 
-  .band{ background:var(--band); padding:8mm 14mm 6mm; display:flex; align-items:center; gap:7mm; border-bottom:0.4mm solid #d7ddf5; }
-  .band .portrait{ width:25mm; height:25mm; border-radius:50%; overflow:hidden; flex-shrink:0; border:0.6mm solid #ffffff; box-shadow:0 0 0 0.3mm #c7d0f0; }
-  .band .portrait img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .band .id h1{ font-size:21pt; font-weight:700; letter-spacing:-0.01em; }
-  .band .id .role{ color:var(--accent); font-weight:700; font-size:11.5pt; margin-top:1mm; }
-  .band .id .contact{ font-size:8.8pt; color:var(--muted); margin-top:2.4mm; }
+  .band{ background:var(--band); padding:8mm 12mm 6mm; display:flex; align-items:center; gap:7mm; border-bottom:0.4mm solid #d7ddf5; }
+  .portrait{ width:27mm; height:27mm; border-radius:50%; overflow:hidden; flex-shrink:0; border:0.6mm solid #fff; box-shadow:0 0 0 0.3mm #c7d0f0; }
+  .portrait img{ width:100%; height:100%; object-fit:cover; object-position:50% 20%; display:block; }
+  h1{ font-size:22pt; font-weight:700; letter-spacing:-0.01em; line-height:1.1; }
+  .role{ color:var(--accent); font-weight:700; font-size:11.5pt; margin-top:1mm; }
+  .contact{ font-size:8.8pt; color:var(--muted); margin-top:2.2mm; }
 
-  .main{ padding:3mm 14mm 10mm; }
-  h2{ font-size:9.3pt; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent);
-      border-bottom:0.5mm solid var(--accent); padding-bottom:1mm; margin:5mm 0 2.6mm; }
-  .summary{ font-size:10.3pt; color:#2a2a2a; }
-  .item{ margin-top:3.6mm; }
-  .item-head{ display:flex; justify-content:space-between; gap:4mm; font-weight:700; font-size:10.4pt; }
-  .item-meta{ font-weight:400; color:var(--muted); font-size:8.8pt; text-align:right; }
-  .item ul{ margin:1mm 0 0 4.5mm; }
-  .item li{ font-size:9.7pt; color:#2a2a2a; margin-top:0.8mm; }
-  .item p{ font-size:9.7pt; color:#2a2a2a; margin-top:1mm; }
-  .row{ font-size:9.7pt; margin-top:1.2mm; }
-  .row b{ font-weight:700; }
-  .row span{ color:var(--muted); }
+  /* DOM order: main first, sidebar second (reading order for parsers); sidebar is shown on the left */
+  .grid{ display:flex; flex-direction:row-reverse; }
+  .main{ width:68%; padding:5.5mm 12mm 8mm 8mm; }
+  aside{ width:32%; background:#faf9f7; border-right:0.3mm solid var(--line); padding:5.5mm 6mm 8mm 12mm; min-height:244mm; }
+
+  h2{ font-size:8.8pt; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent);
+      border-bottom:0.5mm solid var(--accent); padding-bottom:1mm; margin:5mm 0 2.4mm; }
+  .main h2:first-child, aside h2:first-child{ margin-top:0; }
+
+  .summary{ font-size:9.9pt; }
+  .item{ margin-top:3.4mm; break-inside:avoid; }
+  .head{ display:flex; justify-content:space-between; gap:3mm; align-items:baseline; font-weight:700; font-size:10.1pt; }
+  .head span{ font-weight:400; color:var(--muted); font-size:8.4pt; white-space:nowrap; }
+  .item p, .item li{ font-size:9.2pt; color:#2a2a2a; margin-top:0.9mm; }
+  .item ul{ margin:0.4mm 0 0 4mm; }
+  .item li{ margin-top:0.5mm; }
+  .links{ font-size:8.2pt; color:var(--muted); margin-top:0.8mm; }
+
+  aside .cat{ display:block; font-weight:700; font-size:9.3pt; margin-top:3mm; }
+  aside .cat:first-of-type{ margin-top:0; }
+  aside .txt{ display:block; color:var(--muted); font-size:9pt; }
+  .lang{ display:flex; justify-content:space-between; font-size:9.3pt; margin-top:1.6mm; }
+  .lang span:last-child{ color:var(--muted); font-size:8.6pt; }
+  .edu b{ display:block; font-size:9.6pt; }
+  .edu span{ display:block; color:var(--muted); font-size:8.8pt; margin-top:0.8mm; }
 
   @page{ size:A4; margin:0; }
-  @media print{ .band{ -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+  @media print{ .band, aside{ -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
 </style>
 </head>
 <body>
 <div class="page">
 
   <div class="band">
-    <div class="portrait"><img src="assets/yegor-portrait-2.png" alt="Yegor Brusnyak"></div>
-    <div class="id">
+    <div class="portrait"><img src="assets/yegor-portrait.jpg" alt="Yegor Brusnyak"></div>
+    <div>
       <h1>Yegor Brusnyak</h1>
-      <p class="role">AI Engineer — speech, LLM evaluation &amp; automation</p>
-      <p class="contact">brusnyakyegor@gmail.com · https://github.com/brusnyak · https://linkedin.com/in/yegor-brusnyak · Bratislava, Slovakia · Open to junior / working-student AI roles and freelance projects</p>
+      <p class="role">Systems Engineer — speech &amp; LLM pipelines</p>
+      <p class="contact">brusnyakyegor@gmail.com · github.com/brusnyak · linkedin.com/in/yegor-brusnyak · Bratislava, Slovakia</p>
     </div>
   </div>
 
-  <div class="main">
-    <h2>Summary</h2>
-    <p class="summary">Bachelor candidate (STU Bratislava, FEI) who builds voice and LLM systems and measures whether they actually work: accuracy, latency and load, on real GPUs, with the numbers published. My thesis system is benchmarked and open; earlier products taught me what customers will and will not pay for.</p>
+  <div class="grid">
+    <div class="main">
+      <h2>Summary</h2>
+      <p class="summary">Computer science student (STU Bratislava, graduating 2027). I build speech and LLM systems and measure where they break: latency, accuracy and load, with the numbers published. Looking for part-time or remote engineering work, or a freelance project, while I finish the degree.</p>
 
-    <h2>Projects</h2>
-    <div class="item">
-      <div class="item-head"><span>Real-Time Speech Translation (bachelor thesis)</span><span class="item-meta">https://github.com/brusnyak/bp<br>https://brusnyak.github.io/bp/ (benchmark report)</span></div>
-      <ul>
-        <li>Slovak↔English live translation with voice cloning for online meetings: FastAPI, Whisper STT, Opus-MT, cloned-voice TTS (OmniVoice / X-Voice), streaming audio pipeline.</li>
-        <li>Measured on a Tesla T4: real-time factor 0.18–0.34 with a cloned voice; first translated audio in 1.1–2 s; one GPU worker serves about 12 meeting participants (p95 first audio 2.6 s), degrades at 16, collapses at 24.</li>
-        <li>Found the bottleneck (a single serialised TTS worker, ~85–90 % of compute). Slovak output quality judged by ear per setting; 38 automated tests; GPU and load benchmark report published.</li>
-      </ul>
-    </div>
-    <div class="item">
-      <div class="item-head"><span>AI Recruitment Copilot</span><span class="item-meta">https://github.com/brusnyak/ai-recruitment-copilot</span></div>
-      <p>CV/JD parsing to schema-validated JSON, pgvector retrieval with re-ranking, LLM fit scoring, interview-question generation, LLM observability, automated eval harness (FastAPI + Next.js).</p>
-    </div>
-    <div class="item">
-      <div class="item-head"><span>AgentOps Control Room</span><span class="item-meta">https://github.com/brusnyak/agentops-control-room</span></div>
-      <p>Run engine for configurable voice/SMS/email outbound workflows with versioning, regression tracking and evaluation (FastAPI + Next.js).</p>
-    </div>
-    <div class="item">
-      <div class="item-head"><span>Recareo — AI voice-recall for dental clinics (retired)</span><span class="item-meta">2025–2026</span></div>
-      <p>Voice agent to rebook lapsed patients, lead-enrichment pipeline, Stripe billing. Demo tested with outreach; no paying customers, so I stopped it. Kept the pipeline code and the lesson: validate buyers before building.</p>
+      <h2>Projects</h2>
+
+      <div class="item">
+        <div class="head"><span style="color:#191817;font-weight:700;font-size:10.1pt">Real-Time Speech Translation — bachelor thesis</span><span>in progress</span></div>
+        <ul>
+          <li>Live English and Slovak translation with voice cloning for online meetings: VAD, STT, MT and TTS over a WebSocket stream. 38 automated tests.</li>
+          <li>Tesla T4 load test: real-time factor 0.18–0.34, first translated audio in 1.1–2 s. One GPU worker served 12 participants (p95 2.6 s), degraded at 16, collapsed at 24. Bottleneck: the single TTS worker, 85–90 % of compute.</li>
+          <li>Slovak speech model comparison on CPU: tuned Whisper small 0.26 WER at 2.4 s per clip, versus 0.62 for stock small.</li>
+        </ul>
+        <p class="links">github.com/brusnyak/bp · brusnyak.github.io/bp (benchmark report)</p>
+      </div>
+
+      <div class="item">
+        <div class="head"><span style="color:#191817;font-weight:700;font-size:10.1pt">nearpitch — open-source sales agent toolkit</span><span>in progress</span></div>
+        <ul>
+          <li>WhatsApp agent that quotes only from a typed catalogue, plus a lead-to-outreach loop where a human approves every email. Reply guards and send caps are code, not prompt.</li>
+          <li>69 Python and 17 Node tests; the README lists what does not work yet. MIT.</li>
+        </ul>
+        <p class="links">github.com/brusnyak/nearpitch</p>
+      </div>
+
+      <div class="item">
+        <div class="head"><span style="color:#191817;font-weight:700;font-size:10.1pt">AI Recruitment Copilot</span><span>personal project</span></div>
+        <p>CV/JD parsing to schema-validated JSON, pgvector retrieval with re-ranking, LLM fit scoring, and an evaluation loop for comparing ranking changes. FastAPI, Next.js.</p>
+        <p class="links">github.com/brusnyak/ai-recruitment-copilot</p>
+      </div>
+
+      <div class="item">
+        <div class="head"><span style="color:#191817;font-weight:700;font-size:10.1pt">AgentOps Control Room</span><span>personal project</span></div>
+        <p>Outbound voice, SMS and email agent workflows with run versioning and regression checks, so a behaviour change traces to a version.</p>
+        <p class="links">github.com/brusnyak/agentops-control-room</p>
+      </div>
+
+      <div class="item">
+        <div class="head"><span style="color:#191817;font-weight:700;font-size:10.1pt">Tracus</span><span>live</span></div>
+        <p>Local-first German vocabulary capture app with dictionary lookup and a browser extension. tracus.vercel.app</p>
+      </div>
+
+      <div class="item">
+        <div class="head"><span style="color:#191817;font-weight:700;font-size:10.1pt">Recareo — voice agent for dental recalls</span><span>shut down</span></div>
+        <p>Rebooked lapsed patients by voice; enrichment, landing site, Stripe billing. No paying client, so I stopped it and kept the voice and billing code.</p>
+      </div>
     </div>
 
-    <h2>Skills</h2>
-    <p class="row"><b>AI / speech:</b> <span>LLM APIs, RAG &amp; embeddings, evaluation harnesses, Whisper STT, TTS, voice cloning, latency/load testing</span></p>
-    <p class="row"><b>Engineering:</b> <span>Python, TypeScript, FastAPI, PostgreSQL/pgvector, Supabase, Next.js/React, Docker, Linux, pytest, Stripe</span></p>
+    <aside>
+      <h2>Skills</h2>
+      <b class="cat">AI &amp; speech</b>
+      <span class="txt">LLM APIs, RAG, embeddings, evaluation and regression checks, faster-whisper, CTranslate2, Piper, voice cloning</span>
+      <b class="cat">Back end</b>
+      <span class="txt">Python, TypeScript, Node.js, SQL, FastAPI, PostgreSQL, pgvector, Supabase, WebSockets</span>
+      <b class="cat">Front end</b>
+      <span class="txt">React, Next.js, Svelte, Tailwind CSS</span>
+      <b class="cat">Tools</b>
+      <span class="txt">Git, Docker, Linux, GitHub Actions, pytest, Vercel, Stripe</span>
 
-    <h2>Education</h2>
-    <div class="item" style="margin-top:0">
-      <div class="item-head"><span>Information and Communication Technologies (B-IKT), STU FEI Bratislava</span><span class="item-meta">bachelor thesis in progress</span></div>
-      <p>Information &amp; Communication Technologies. Thesis: Real-Time Speech Translation During Online Conferences.</p>
-    </div>
+      <h2>Languages</h2>
+      <div class="lang"><span>Ukrainian</span><span>Native</span></div>
+      <div class="lang"><span>English</span><span>Fluent</span></div>
+      <div class="lang"><span>Slovak</span><span>B2</span></div>
+      <div class="lang"><span>German</span><span>B1</span></div>
 
-    <h2>Languages</h2>
-    <p class="row"><b>Ukrainian</b> <span>native</span> · <b>English</b> <span>fluent</span> · <b>Slovak</b> <span>B1</span> · <b>German</b> <span>A2</span></p>
+      <h2>Education</h2>
+      <div class="edu">
+        <b>B.Sc., Information and Communication Technologies (B-IKT)</b>
+        <span>STU Bratislava, FEI · graduating 2027</span>
+        <span>Thesis: Real-Time Speech Translation During Online Conferences</span>
+      </div>
+    </aside>
   </div>
 
 </div>

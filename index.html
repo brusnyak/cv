@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Yegor Brusnyak — AI engineer building voice agents, automation, and LLM-powered products end to end.">
-<meta property="og:title" content="Yegor Brusnyak — AI Engineer">
-<meta property="og:description" content="Voice agents, AI workflows, product engineering, and automation systems built for real use cases.">
+<meta name="description" content="Yegor Brusnyak, systems engineer and CS student in Bratislava. Real-time speech translation measured on a T4 GPU, an open-source sales-agent toolkit, RAG and agent tooling.">
+<meta property="og:title" content="Yegor Brusnyak — Systems Engineer">
+<meta property="og:description" content="Speech translation, RAG, and agent tooling, with source links.">
 <meta property="og:image" content="assets/yegor-portrait.jpg">
 <meta name="theme-color" content="#faf9f7">
-<title>Yegor Brusnyak — AI Engineer</title>
+<title>Yegor Brusnyak — Systems Engineer</title>
 <style>
   :root{
     --bg:#faf9f7;
@@ -17,28 +17,23 @@
     --border-strong:#d8d5cf;
     --text:#15140f;
     --muted:#6b6862;
-    --soft:#98958d;
+    --soft:#74716a;
     --accent:#2554e8;
     --accent-soft:rgba(37,84,232,0.08);
     --accent-line:rgba(37,84,232,0.18);
-    --green:#1fa262;
     --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   }
   html[data-theme="light"]{
-    --bg:#faf9f7; --panel:#ffffff; --border:#e7e5e1; --border-strong:#d8d5cf; --text:#15140f; --muted:#6b6862; --soft:#98958d; --accent:#2554e8; --accent-soft:rgba(37,84,232,0.08); --accent-line:rgba(37,84,232,0.18);
+    --bg:#faf9f7; --panel:#ffffff; --border:#e7e5e1; --border-strong:#d8d5cf; --text:#15140f; --muted:#5f5c56; --soft:#74716a; --accent:#2554e8; --accent-soft:rgba(37,84,232,0.08); --accent-line:rgba(37,84,232,0.18);
   }
   html[data-theme="dark"]{
-    --bg:#121411; --panel:#1a1d1a; --border:#2a2e2c; --border-strong:#3a403b; --text:#edf4ee; --muted:#b4baa9; --soft:#8f968d; --accent:#93a9ff; --accent-soft:rgba(147,169,255,0.14); --accent-line:rgba(147,169,255,0.26); --green:#4cd796;
+    --bg:#121411; --panel:#1a1d1a; --border:#2a2e2c; --border-strong:#3a403b; --text:#edf4ee; --muted:#b4baa9; --soft:#8f968d; --accent:#93a9ff; --accent-soft:rgba(147,169,255,0.14); --accent-line:rgba(147,169,255,0.26);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
+  ::selection{background:var(--accent);color:var(--bg)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
   body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s;position:relative}
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
-    radial-gradient(circle at 12% 10%, rgba(37,84,232,0.09), transparent 18%),
-    radial-gradient(circle at 84% 16%, rgba(120,134,255,0.12), transparent 22%),
-    radial-gradient(circle at 50% 100%, rgba(37,84,232,0.06), transparent 30%);
-    z-index:-2}
-  body::after{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.12), rgba(255,255,255,0.12));opacity:.6;z-index:-2}
   a,button{cursor:pointer}
   a{color:inherit;text-decoration:none}
   p,h1,h2,h3{margin:0}
@@ -49,8 +44,6 @@
   .portrait img{width:100%;height:100%;object-fit:cover;display:block}
   h1.name{font-size:46px;font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-top:24px}
   p.role{font-size:18px;font-weight:600;color:var(--accent);margin-top:10px}
-  .status-pill{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:7px 14px;border-radius:999px;border:1px solid var(--border-strong);font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted)}
-  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(31,162,98,0.15)}
   .loc-row{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:var(--muted)}
   .loc-row svg{width:15px;height:15px;color:var(--soft)}
   nav.side-nav{display:flex;flex-direction:column;margin-top:52px}
@@ -65,11 +58,9 @@
   main.content{width:62%;padding:72px 0 140px}
   section{padding-bottom:92px}
   section:last-of-type{padding-bottom:60px}
-  .section-head{margin-bottom:30px}
-  .eyebrow{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-  h2.section-title{font-size:26px;font-weight:800;letter-spacing:-0.01em;color:var(--accent)}
-  .section-underline{width:44px;height:3px;background:var(--accent);border-radius:2px;margin-top:10px}
-  .hero h2{font-size:38px;line-height:1.08;letter-spacing:-0.02em;margin-bottom:18px}
+  .section-head{margin-bottom:10px}
+  h2.section-title{font-size:15px;font-weight:700;letter-spacing:0.02em;color:var(--muted)}
+  .hero h2{font-size:38px;line-height:1.1;letter-spacing:-0.02em;margin-bottom:18px;text-wrap:balance}
   .hero p.lede{font-size:17px;line-height:1.75;color:var(--muted);max-width:66ch}
   .hero p.lede + p.lede{margin-top:14px}
   .hero-actions{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
@@ -78,46 +69,33 @@
   .pill.primary{background:var(--accent);border-color:var(--accent);color:#fff}
   .pill.primary:hover{opacity:.9}
   .pill:not(.primary):hover{border-color:var(--accent);color:var(--accent)}
-  .proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
-  .proof-stat{border:1px solid var(--border);background:rgba(255,255,255,.52);border-radius:12px;padding:14px}
-  .proof-stat strong{display:block;font-size:20px;line-height:1;color:var(--accent)}
-  .proof-stat span{display:block;margin-top:7px;font-size:12px;color:var(--muted)}
-  .project-grid{display:grid;grid-template-columns:1fr;gap:28px}
-  .project-card{display:grid;grid-template-columns:minmax(220px,40%) 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.46);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.2s}
-  .project-card:hover{border-color:var(--accent-line);box-shadow:0 14px 40px -24px rgba(20,20,15,.25);transform:translateY(-1px)}
-  .project-media{min-height:230px;background:linear-gradient(135deg,#f1f3fb,#f8f6ee);position:relative}
-  .project-media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
-  .visual-card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#f8f9ff,#f8f6ee)}
-  .runtime-visual,.discord-visual{width:100%;height:100%;display:flex;flex-direction:column;gap:14px;justify-content:center}
-  .channel-row,.command-row{display:flex;flex-wrap:wrap;gap:8px}
-  .channel-chip,.command-chip{border:1px solid var(--accent-line);background:#fff;color:var(--accent);font-size:12px;font-weight:750;border-radius:999px;padding:6px 10px}
-  .flow-arrow{height:2px;background:linear-gradient(90deg,var(--accent),rgba(37,84,232,0));position:relative}
-  .flow-arrow:after{content:"";position:absolute;right:0;top:-4px;border-left:8px solid var(--accent);border-top:5px solid transparent;border-bottom:5px solid transparent}
-  .graph-box,.discord-box{border:1px solid var(--border-strong);border-radius:14px;background:rgba(255,255,255,.86);padding:14px;box-shadow:0 14px 30px -26px rgba(20,20,15,.4)}
-  .graph-box strong,.discord-box strong{display:block;color:var(--text);font-size:14px;margin-bottom:8px}
-  .graph-box span,.discord-box span{display:block;color:var(--muted);font-size:12px;line-height:1.55}
-  .status-stack{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .status-mini{border:1px solid var(--border);border-radius:10px;padding:9px;background:#fff;font-size:12px;color:var(--muted)}
-  .status-mini b{display:block;color:var(--accent);font-size:13px}
-  .project-body{padding:24px}
-  .project-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--soft);margin-bottom:8px}
-  .project-body h3{font-size:20px;font-weight:750}
-  .project-body p.desc{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.62}
-  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
-  .tags span{font-size:11.5px;color:var(--muted);border:1px solid var(--border-strong);padding:3px 9px;border-radius:6px;background:var(--bg)}
-  .project-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
-  .project-links a{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;color:var(--accent)}
+  .project-list{display:flex;flex-direction:column}
+  .project{padding:26px 0;border-top:1px solid var(--border-strong)}
+  .project:last-child{border-bottom:1px solid var(--border-strong)}
+  .project-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .project h3{font-size:20px;font-weight:750;letter-spacing:-0.01em}
+  .project .state{font-size:13px;color:var(--muted)}
+  .project p.desc{color:var(--muted);font-size:15px;margin-top:8px;line-height:1.65;max-width:68ch}
+  .project p.desc strong{color:var(--text);font-weight:650}
+  .project .stack{font-size:13px;color:var(--soft);margin-top:10px}
+  table.measure{border-collapse:collapse;margin-top:14px;font-size:13.5px;font-variant-numeric:tabular-nums;max-width:560px;width:100%}
+  table.measure caption{text-align:left;font-size:12.5px;color:var(--soft);padding-bottom:6px}
+  table.measure th,table.measure td{padding:6px 14px 6px 0;text-align:left;border-top:1px solid var(--border);font-weight:400;color:var(--muted)}
+  table.measure thead th{font-weight:650;color:var(--text);border-top:0;border-bottom:1px solid var(--border-strong)}
+  table.measure tr.pick th,table.measure tr.pick td{color:var(--text);font-weight:650}
+  .project-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+  .project-links a{font-size:14px;font-weight:650;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
   .project-links a:hover{opacity:.72}
   .matrix{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .matrix-card{border:1px solid var(--border);background:var(--panel);border-radius:14px;padding:22px}
+  .matrix-card{border-top:1px solid var(--border-strong);padding:16px 0 0}
   .matrix-card h3{font-size:15px;font-weight:760;margin-bottom:10px}
   .matrix-card p,.matrix-card li{font-size:14px;color:var(--muted)}
   .matrix-card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
-  .boundary{border:1px solid var(--border-strong);border-radius:18px;background:var(--panel);padding:28px}
+  .boundary{border-top:1px solid var(--border-strong);padding:20px 0 0}
   .boundary h3{font-size:19px;margin-bottom:12px}
   .boundary p{color:var(--muted);font-size:14.5px;max-width:70ch}
-  .contact-card{border:1px solid var(--border-strong);border-radius:18px;background:var(--panel);padding:44px;display:flex;flex-direction:column;gap:22px;align-items:flex-start}
-  .contact-card h2{font-size:24px;font-weight:800;max-width:34ch;letter-spacing:-0.01em}
+  .contact-card{border-top:1px solid var(--border-strong);padding:20px 0 0;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+  .contact-card h2{font-size:22px;font-weight:750;max-width:34ch;letter-spacing:-0.01em}
   .contact-card p{color:var(--muted);font-size:14.5px}
   .header-controls{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:10px;align-items:center}
   .pdf-download,.theme-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--border-strong);background:var(--panel);color:var(--muted);cursor:pointer;transition:border-color .15s,color .15s}
@@ -133,7 +111,7 @@
     body{background:#fff!important;color:#000!important;padding:0!important;font-size:10.5px!important;line-height:1.4!important;zoom:0.88!important}
     .page{max-width:100%!important;padding:0!important;margin:0!important}
     .layout{display:flex!important;gap:12px!important;align-items:stretch}
-    .header-controls,.theme-toggle,.icon-row,.project-media img,.status-pill,.pdf-download,#bg-canvas,#cursor-dot,.mobile-intro,aside.sidebar .portrait,aside.sidebar .side-nav{display:none!important}
+    .header-controls,.theme-toggle,.icon-row,.project-media img,.pdf-download,.mobile-intro,aside.sidebar .portrait,aside.sidebar .side-nav{display:none!important}
     aside.sidebar{position:static!important;width:24%!important;min-width:0!important;height:auto!important;padding:0 12px 0 0!important;display:block!important;border-right:1.5px solid #000!important}
     aside.sidebar h1.name{font-size:17px!important;margin-top:0!important;line-height:1.2!important}
     aside.sidebar p.role{font-size:10.5px!important;margin-top:4px!important;color:#555!important}
@@ -143,26 +121,16 @@
     section:last-of-type{padding-bottom:0!important}
     .section-head{margin-bottom:5px!important}
     h2.section-title{font-size:11.5px!important;color:#000!important}
-    .eyebrow{font-size:8px!important;color:#555!important}
-    .hero h2{font-size:11.5px!important;margin-bottom:2px!important}
+      .hero h2{font-size:11.5px!important;margin-bottom:2px!important}
     .hero p.lede{font-size:9px!important;color:#333!important}
     .hero-actions{display:none!important}
     .hero p.lede + p.lede{display:none!important}
-    .proof-strip{grid-template-columns:repeat(4,1fr)!important;gap:4px!important;margin-top:5px!important}
-    .proof-stat{border:1px solid #ccc!important;padding:4px 5px!important;border-radius:0!important}
-    .proof-stat strong{font-size:11.5px!important}
-    .proof-stat span{font-size:7.5px!important}
-    .project-grid{display:block!important;gap:0!important}
-    .project-card{display:block!important;grid-template-columns:none!important;border:none!important;border-radius:0!important;background:none!important;backdrop-filter:none!important;padding:2px 0!important;border-bottom:1px solid #ccc!important;margin-bottom:0!important;break-inside:avoid;page-break-inside:avoid}
-    .project-card:last-of-type{border-bottom:none!important}
+    .project-list{display:block!important}
     .matrix-card,.boundary,.contact-card{break-inside:avoid!important;page-break-inside:avoid!important}
-    .project-card:hover{transform:none!important;box-shadow:none!important}
-    .project-media,.visual-card,.section-underline{display:none!important}
-    .project-body{padding:0!important}
-    .project-meta{font-size:7.5px!important;color:#666!important;margin-bottom:1px!important}
-    .project-body h3{font-size:10.5px!important}
-    .project-body p.desc{font-size:9px!important;color:#333!important;margin-top:2px!important}
-    .tags{display:none!important}
+    .project{padding:3px 0!important;break-inside:avoid;border-color:#ccc!important}
+    .project h3{font-size:10.5px!important}
+    .project p.desc{font-size:9px!important;color:#333!important;margin-top:2px!important}
+    .project .stack{display:none!important}
     .project-links{border-top:none!important;margin-top:2px!important;padding-top:0!important}
     .project-links a{font-size:8.5px!important;color:#333!important}
     .matrix{grid-template-columns:1fr 1fr!important;gap:5px!important}
@@ -187,9 +155,7 @@
     .layout{flex-direction:column;gap:0}
     aside.sidebar{width:100%;min-width:0;position:relative;height:auto;padding:44px 0 32px;border-bottom:1px solid var(--border)}
     main.content{width:100%;padding:42px 0 90px}
-    .proof-strip,.matrix{grid-template-columns:1fr 1fr}
-    .project-card{grid-template-columns:1fr}
-    .project-media{min-height:210px}
+    .matrix{grid-template-columns:1fr 1fr}
   }
   @media (max-width:760px){
     .header-controls{top:12px;right:12px}
@@ -211,15 +177,12 @@
     .hero p.lede{font-size:15px;line-height:1.7;max-width:100%}
     .hero-actions{gap:8px}
     .hero-actions .pill{flex:1 1 auto;min-width:0}
-    .proof-strip,.matrix{grid-template-columns:1fr}
-    .proof-stat{padding:12px 10px}
-    .contact-card{padding:24px 18px}
+    .matrix{grid-template-columns:1fr}
   }
   @media (min-width:761px){
     .mobile-intro{display:none}
   }
 </style>
-<link rel="stylesheet" href="assets/cv-framework.css">
 <script>
   (function(){
     var saved = localStorage.getItem('cv-theme');
@@ -231,8 +194,6 @@
 </script>
 </head>
 <body>
-<canvas id="bg-canvas"></canvas>
-<div id="cursor-dot"></div>
 <div class="header-controls">
   <a href="assets/yegor-brusnyak-cv.pdf" class="pdf-download" aria-label="Download CV as PDF" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -248,17 +209,15 @@
       <div>
         <div class="portrait"><img src="assets/yegor-portrait.jpg" alt="Portrait of Yegor Brusnyak"></div>
         <h1 class="name">Yegor<br>Brusnyak</h1>
-        <p class="role">AI Engineer</p>
-        <div class="status-pill"><span class="status-dot"></span>Available immediately</div>
+        <p class="role">Systems Engineer</p>
         <div class="loc-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Bratislava, Slovakia · Remote-first
+          Bratislava, Slovakia
         </div>
         <nav class="side-nav" aria-label="Section navigation">
           <a href="#top" class="active"><span class="tick"></span>Overview</a>
           <a href="#projects"><span class="tick"></span>Projects</a>
           <a href="#skills"><span class="tick"></span>Skills</a>
-          <a href="#experience"><span class="tick"></span>Experience</a>
           <a href="#education"><span class="tick"></span>Education</a>
           <a href="#contact"><span class="tick"></span>Contact</a>
           <a href="bot/"><span class="tick"></span>Bot Proof</a>
@@ -282,7 +241,7 @@
         <div class="portrait"><img src="assets/yegor-portrait.jpg" alt="Portrait of Yegor Brusnyak"></div>
         <div class="meta">
           <h1>Yegor Brusnyak</h1>
-          <p class="role">AI Engineer</p>
+          <p class="role">Systems Engineer</p>
           <div class="loc-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
             Bratislava, Slovakia
@@ -301,147 +260,66 @@
         </div>
       </div>
       <section class="hero" id="top">
-        <div class="eyebrow">Voice AI · LLM products · Automation</div>
-        <h2>AI systems, engineered to earn their place in production.</h2>
-        <p class="lede">I design and ship voice agents, AI workflows, and product systems that fit real business needs instead of staying in prototype mode.</p>
-        <p class="lede">My practice sits at the intersection of product judgement and engineering craft — architecture, integrations, and the details that make a system genuinely usable.</p>
+        <h2>I build speech and LLM pipelines, then measure where they break.</h2>
+        <p class="lede">Computer science student at STU Bratislava, graduating in 2027. My bachelor thesis is a real-time speech translation system: I benchmarked it on a GPU, found its bottleneck, and published the numbers.</p>
+        <p class="lede">I care about latency, load and whether a model change helped or only looked like it did. Looking for part-time or remote engineering work, or a freelance project, while I finish the degree.</p>
         <div class="hero-actions">
           <a class="pill primary" href="assets/yegor-brusnyak-cv.pdf" target="_blank" rel="noopener">Download CV</a>
           <a class="pill" href="#projects">Selected work</a>
           <a class="pill" href="https://github.com/brusnyak" target="_blank" rel="noopener">GitHub</a>
           <a class="pill" href="https://linkedin.com/in/yegor-brusnyak" target="_blank" rel="noopener">LinkedIn</a>
         </div>
-        <div class="proof-strip" aria-label="Proof summary">
-          <div class="proof-stat"><strong>4+</strong><span>AI products shipped</span></div>
-          <div class="proof-stat"><strong>B-IKT</strong><span>ICT, STU FEI Bratislava</span></div>
-          <div class="proof-stat"><strong>5</strong><span>programming languages</span></div>
-          <div class="proof-stat"><strong>Live</strong><span>Bot-verified workflows</span></div>
-        </div>
       </section>
 
       <section id="projects">
         <div class="section-head">
           <h2 class="section-title">Projects</h2>
-          <div class="section-underline"></div>
-        </div>
-        <div class="project-grid">
-          <article class="project-card">
-            <div class="project-media">
-              <div class="visual-card">
-                <div class="runtime-visual">
-                  <div class="channel-row">
-                    <span class="channel-chip">Voice</span>
-                    <span class="channel-chip">SMS</span>
-                    <span class="channel-chip">Email</span>
                   </div>
-                  <div class="flow-arrow"></div>
-                  <div class="graph-box">
-                    <strong>AI workflow</strong>
-                    <span>lead intake → enrichment → decisioning → human handoff</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">Voice AI • Shipped</div>
-              <h3>Recareo</h3>
-              <p class="desc">AI voice system that automatically rebooks lapsed dental patients. Includes voice agent orchestration, patient enrichment, a conversion-focused website, and Stripe billing.</p>
-              <div class="tags">
-                <span>Voice agent</span><span>Automation</span><span>Payments</span>
-              </div>
-              <div class="project-links">
-                <a href="https://www.recareo.uk" target="_blank" rel="noopener">Website →</a>
-              </div>
-            </div>
+        <div class="project-list">
+          <article class="project">
+            <div class="project-head"><h3>Real-Time Speech Translation</h3><span class="state">Bachelor thesis · in progress</span></div>
+            <p class="desc">English and Slovak live translation with voice cloning for online meetings: voice activity detection, speech-to-text, machine translation and text-to-speech over a WebSocket stream. Runs on a laptop CPU or a GPU. <strong>38 automated tests.</strong></p>
+            <p class="desc">On a Tesla T4 the full cascade with a cloned voice runs at 0.18 to 0.34 real-time factor, with first translated audio in 1.1 to 2 s. One GPU worker served 12 meeting participants (p95 first audio 2.6 s), degraded at 16 and collapsed at 24. The bottleneck is the single text-to-speech worker, 85 to 90 % of compute.</p>
+            <table class="measure">
+              <caption>Slovak speech recognition, 18 sentences, one speaker, CPU (lower WER is better)</caption>
+              <thead><tr><th scope="col">Model</th><th scope="col">WER</th><th scope="col">Time per 7 s clip</th></tr></thead>
+              <tbody>
+                <tr class="pick"><th scope="row">Slovak-tuned Whisper small (chosen)</th><td>0.26</td><td>2.4 s</td></tr>
+                <tr><th scope="row">Whisper large-v3-turbo</th><td>0.44</td><td>7.3 s</td></tr>
+                <tr><th scope="row">Whisper small, stock</th><td>0.62</td><td>2.2 s</td></tr>
+              </tbody>
+            </table>
+            <p class="stack">Python, FastAPI, faster-whisper, CTranslate2, WebSockets</p>
+            <div class="project-links"><a href="https://github.com/brusnyak/bp" target="_blank" rel="noopener">Source</a><a href="https://brusnyak.github.io/bp/" target="_blank" rel="noopener">Model report (Slovak)</a></div>
           </article>
-
-          <article class="project-card">
-            <div class="project-media">
-              <div class="visual-card">
-                <div class="discord-visual">
-                  <div class="command-row">
-                    <span class="command-chip">CV parse</span>
-                    <span class="command-chip">JD match</span>
-                    <span class="command-chip">scoring</span>
-                  </div>
-                  <div class="status-stack">
-                    <div class="status-mini"><b>RAG</b> semantic retrieval</div>
-                    <div class="status-mini"><b>LLM</b> ranking + notes</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">LLM app • RAG</div>
-              <h3>AI Recruitment Copilot</h3>
-              <p class="desc">Candidate-to-job matching system using document parsing, embeddings, semantic retrieval, LLM-based scoring, and evaluation loops for a more transparent hiring workflow.</p>
-              <div class="tags">
-                <span>RAG</span><span>Embeddings</span><span>Prompt design</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/brusnyak/ai-recruitment-copilot" target="_blank" rel="noopener">Source →</a>
-                <a href="https://github.com/brusnyak/ai-recruitment-copilot/tree/main/docs" target="_blank" rel="noopener">Docs →</a>
-              </div>
-            </div>
+          <article class="project">
+            <div class="project-head"><h3>nearpitch</h3><span class="state">Open source · in progress</span></div>
+            <p class="desc">A WhatsApp sales agent that quotes only from the catalogue you give it, plus a lead-to-outreach loop where a human approves every email before it is sent. Reply guards are code, not prompt: no invented prices, no invented contact details, hard send caps. <strong>69 Python and 17 Node tests</strong> on invented fixtures. The README lists what does not work yet.</p>
+            <p class="stack">Python, Node, MIT licence</p>
+            <div class="project-links"><a href="https://github.com/brusnyak/nearpitch" target="_blank" rel="noopener">Source</a></div>
           </article>
-
-          <article class="project-card">
-            <div class="project-media">
-              <div class="visual-card">
-                <div class="runtime-visual">
-                  <div class="command-row">
-                    <span class="command-chip">Ops</span>
-                    <span class="command-chip">Versioning</span>
-                    <span class="command-chip">Run logs</span>
-                  </div>
-                  <div class="graph-box">
-                    <strong>Control room</strong>
-                    <span>workflow runtime, approval gates, fallback paths, auditability</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">Automation • Operations</div>
-              <h3>AgentOps Control Room</h3>
-              <p class="desc">Outbound workflow system for multi-channel campaigns with campaign tracking, run versioning, regression checks, and observability across agent behaviors.</p>
-              <div class="tags">
-                <span>Agent runtime</span><span>Observability</span><span>Ops</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/brusnyak/agentops-control-room" target="_blank" rel="noopener">Source →</a>
-                <a href="https://github.com/brusnyak/agentops-control-room/tree/main/docs" target="_blank" rel="noopener">Docs →</a>
-              </div>
-            </div>
+          <article class="project">
+            <div class="project-head"><h3>Tracus</h3><span class="state">Live · source private</span></div>
+            <p class="desc">A local-first German vocabulary capture app. Type or select a word and it looks up the other language through free dictionary APIs, with a browser extension for one-key capture. Export feeds flashcard tools instead of reinventing them.</p>
+            <p class="stack">Svelte, IndexedDB, Vercel</p>
+            <div class="project-links"><a href="https://tracus.vercel.app" target="_blank" rel="noopener">Live app</a></div>
           </article>
-
-          <article class="project-card">
-            <div class="project-media">
-              <div class="visual-card">
-                <div class="runtime-visual">
-                  <div class="command-row">
-                    <span class="command-chip">Whisper</span>
-                    <span class="command-chip">TTS</span>
-                    <span class="command-chip">WebSocket</span>
-                  </div>
-                  <div class="graph-box">
-                    <strong>Realtime speech</strong>
-                    <span>translation pipeline with live audio loop and multi-stage model stack</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">Research • Speech AI</div>
-              <h3>Real-Time Speech Translation</h3>
-              <p class="desc">Speech translation and voice cloning prototype using Whisper, translation models, and streaming audio pipelines for a live conferencing use case.</p>
-              <div class="tags">
-                <span>Speech AI</span><span>WebSockets</span><span>Research</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/brusnyak/bp" target="_blank" rel="noopener">GitHub →</a>
-              </div>
-            </div>
+          <article class="project">
+            <div class="project-head"><h3>AI Recruitment Copilot</h3><span class="state">Source public</span></div>
+            <p class="desc">Parses CVs and job descriptions to schema-validated JSON, retrieves matches with pgvector embeddings, re-ranks, and has an LLM score each match with notes. Includes an evaluation loop so ranking changes can be compared.</p>
+            <p class="stack">FastAPI, Next.js, PostgreSQL, pgvector</p>
+            <div class="project-links"><a href="https://github.com/brusnyak/ai-recruitment-copilot" target="_blank" rel="noopener">Source</a><a href="https://github.com/brusnyak/ai-recruitment-copilot/tree/main/docs" target="_blank" rel="noopener">Docs</a></div>
+          </article>
+          <article class="project">
+            <div class="project-head"><h3>AgentOps Control Room</h3><span class="state">Source public</span></div>
+            <p class="desc">Runs outbound voice, SMS and email agent workflows with run versioning, regression checks and logs, so a change in agent behaviour can be traced to a version.</p>
+            <p class="stack">FastAPI, Next.js</p>
+            <div class="project-links"><a href="https://github.com/brusnyak/agentops-control-room" target="_blank" rel="noopener">Source</a><a href="https://github.com/brusnyak/agentops-control-room/tree/main/docs" target="_blank" rel="noopener">Docs</a></div>
+          </article>
+          <article class="project">
+            <div class="project-head"><h3>Recareo</h3><span class="state">Shut down</span></div>
+            <p class="desc">A voice agent that rebooked lapsed dental patients, with patient enrichment, a landing site and Stripe billing. <strong>It never gained a paying client and I shut it down.</strong> What I kept: the voice orchestration and the billing integration, and the lesson to find the buyer before building.</p>
+            <p class="stack">Voice agents, Stripe</p>
           </article>
         </div>
       </section>
@@ -449,23 +327,22 @@
       <section id="skills">
         <div class="section-head">
           <h2 class="section-title">Skills</h2>
-          <div class="section-underline"></div>
-        </div>
+                  </div>
         <div class="matrix">
           <div class="matrix-card">
             <h3>AI & Product</h3>
             <ul>
               <li>LLM APIs and orchestration</li>
-              <li>Voice AI and speech pipelines</li>
+              <li>Speech pipelines: STT, MT, TTS, voice cloning</li>
               <li>RAG, embeddings, retrieval design</li>
-              <li>MCP, tools, and agent workflows</li>
+              <li>Agent workflows, run logging, regression checks</li>
             </ul>
           </div>
           <div class="matrix-card">
             <h3>Languages & Back End</h3>
             <ul>
-              <li>Python, TypeScript, Node.js</li>
-              <li>C, C#, SQL, Rust</li>
+              <li>Daily use: Python, TypeScript, Node.js</li>
+              <li>SQL, pgvector</li>
               <li>FastAPI, PostgreSQL, Supabase</li>
               <li>WebSockets and event-driven systems</li>
             </ul>
@@ -475,52 +352,39 @@
             <ul>
               <li>React, Next.js, JavaScript</li>
               <li>Tailwind CSS and product UI</li>
-              <li>Landing pages and conversion flows</li>
-              <li>Operational dashboards and tooling</li>
+                            <li>Dashboards and internal tooling</li>
             </ul>
           </div>
           <div class="matrix-card">
             <h3>Infrastructure</h3>
             <ul>
-              <li>Docker, Linux, GitHub Actions</li>
+              <li>Docker, Linux, GitHub Actions, pytest</li>
               <li>Vercel, deployment pipelines</li>
-              <li>Stripe and product integration</li>
+              <li>Stripe integration</li>
               <li>Monitoring, logging, and iteration</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <section id="experience">
-        <div class="section-head">
-          <h2 class="section-title">Experience</h2>
-          <div class="section-underline"></div>
-        </div>
-        <div class="boundary">
-          <h3>Independent AI Engineer &amp; Product Builder</h3>
-          <p>I build practical AI systems for product, operations, and automation work across voice, search, and workflow tooling.</p>
-        </div>
-      </section>
-
-      <section id="education">
+            <section id="education">
         <div class="section-head">
           <h2 class="section-title">Education</h2>
-          <div class="section-underline"></div>
-        </div>
+                  </div>
         <div class="boundary">
           <h3>Slovak University of Technology, Bratislava — B.Sc., Information &amp; Communication Technologies</h3>
-          <p>Information and Communication Technologies (B-IKT), STU FEI. Bachelor thesis: Real-Time Speech Translation During Online Conferences — a live speech pipeline using local STT, translation, and TTS models over streaming audio.</p>
+          <p>Graduating 2027. Studied in Slovak. Thesis: Real-Time Speech Translation During Online Conferences.</p>
+          <p>Languages: Ukrainian (native), English (fluent), Slovak (B2), German (B1).</p>
         </div>
       </section>
 
       <section id="contact">
         <div class="section-head">
           <h2 class="section-title">Contact</h2>
-          <div class="section-underline"></div>
-        </div>
+                  </div>
         <div class="contact-card">
-          <h2>Open to AI engineering, voice automation, and product-focused engineering work.</h2>
-          <p>Remote-friendly and available for contract or full-time roles. I work best on systems that combine product thinking, AI, and reliable delivery.</p>
+          <h2>Email is the fastest way to reach me.</h2>
+          <p>brusnyakyegor@gmail.com. Part-time or remote systems and AI engineering roles, or a freelance project.</p>
           <div class="hero-actions">
             <a class="pill primary" href="assets/yegor-brusnyak-cv.pdf" target="_blank" rel="noopener">Download CV</a>
             <a class="pill" href="mailto:brusnyakyegor@gmail.com">Email</a>
@@ -530,11 +394,17 @@
         </div>
       </section>
 
-      <footer class="foot">Designed &amp; built by lingonberry</footer>
     </main>
   </div>
 </div>
-<script src="assets/cv-framework.js"></script>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.side-nav a[href^="#"]'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function spy(){var p=scrollY+140,id=secs[0]&&secs[0].id;secs.forEach(function(s){if(s&&s.offsetTop<=p)id=s.id});links.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+id)})}
+  spy();addEventListener('scroll',spy,{passive:true});
+})();
+</script>
 <script>
 (function(){
   var toggle = document.getElementById('theme-toggle');
