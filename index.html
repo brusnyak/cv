@@ -8,7 +8,7 @@
   :root{ --ink:#191817; --muted:#5a5751; --accent:#2554e8; --line:#dcd9d2; }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ background:#fff; }
-  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.34; font-size:10pt; width:210mm; margin:0 auto; padding:9mm 14mm; background:#fff; }
+  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); line-height:1.34; font-size:9.9pt; width:210mm; margin:0 auto; padding:8mm 14mm; background:#fff; }
   h1{ font-size:21pt; letter-spacing:-0.01em; }
   .role{ color:var(--accent); font-weight:700; font-size:12pt; margin-top:1mm; }
   .contact{ font-size:9.2pt; color:var(--muted); margin-top:2mm; }
@@ -71,8 +71,8 @@
     <div class="head"><span>Domovyk — AWS to EU-cloud exit planner</span><span class="meta">github.com/brusnyak/domovyk · In progress</span></div>
     <p class="meta">Go, AWS SDK, OpenTofu · pre-alpha</p>
     <ul>
-      <li>Go CLI: read-only AWS discovery (EC2, EBS, RDS, S3, EKS, Lambda, IAM) into a JSON inventory, and a scorer that classifies each resource as portable, rework or rewrite. Unit tested; Docker image and local kind deploy.</li>
-      <li>Read-only by design: draft threat model and least-privilege IAM policy. Discovery has run on a real AWS account (10 IAM roles); the mapping table is unverified seed data and price comparison is a stub.</li>
+      <li>Go CLI: read-only AWS discovery into a JSON inventory, a portable/rework/rewrite scorer, and a price step comparing a FOCUS billing export with dated, sourced Hetzner and OVHcloud prices (object storage so far). Unit tested; Docker, kind deploy.</li>
+      <li>Read-only by design: draft threat model and least-privilege IAM policy. Discovery has run on a real AWS account (10 IAM roles); the mapping table is unverified seed data.</li>
     </ul>
   </article>
 </section>
@@ -92,7 +92,7 @@
 
 <section>
   <h2>Languages</h2>
-  <p>Ukrainian — native · Russian — native · English — fluent · Slovak — B1–B2 · German — B1–B2 (practicing toward B2)</p>
+  <p>Ukrainian — native · Russian — native · English — fluent · Slovak — B1–B2 · German — B1–B2</p>
 </section>
 </body>
 </html>

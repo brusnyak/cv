@@ -17,8 +17,6 @@ Applied AI engineer portfolio. Interactive website, printable PDF CV, and linked
 | --- | --- |
 | Website | [brusnyak.github.io/cv](https://brusnyak.github.io/cv/) |
 | CV PDF | [assets/yegor-brusnyak-cv.pdf](assets/yegor-brusnyak-cv.pdf) |
-| Bot CV PDF | [assets/yegor-brusnyak-bot-cv.pdf](assets/yegor-brusnyak-bot-cv.pdf) |
-| Bot proof page | [bot/index.html](bot/index.html) |
 | GitHub | [github.com/brusnyak](https://github.com/brusnyak) |
 | LinkedIn | [linkedin.com/in/yegor-brusnyak](https://linkedin.com/in/yegor-brusnyak) |
 
@@ -33,11 +31,9 @@ cv/
 ├── README.md               # This file
 ├── assets/                 # Images, PDFs, styles, scripts
 │   ├── yegor-brusnyak-cv.pdf
-│   ├── yegor-brusnyak-bot-cv.pdf
-│   ├── yegor-portrait.jpg  # og:image + bot proof page
-│   ├── cv-framework.css    # bot proof page only
-│   └── cv-framework.js     # bot proof page only
-├── bot/                    # Bot development proof page
+│   ├── yegor-portrait.jpg  # og:image
+│   ├── cv-framework.css    # site styles
+│   └── cv-framework.js     # site styles
 │   └── index.html
 ├── scripts/                # Build tools
 │   └── build_pdfs.py
@@ -73,7 +69,6 @@ python3 scripts/build_pdfs.py --bot     # bot CV only
 python3 scripts/build_pdfs.py --serve   # build via local HTTP server (for JS-heavy pages)
 ```
 
-**How it works:** `scripts/build_pdfs.py` loads each source page in headless Chromium and exports it as an A4 PDF — the main CV from `cv-print.html` (single-column, ATS-friendly), the bot CV from `bot/index.html`. Update the source, re-run the script, and the PDF is in sync — no manual maintenance. The portfolio site (`index.html`) is for browsing, not for print.
 
 ### Deploy
 
