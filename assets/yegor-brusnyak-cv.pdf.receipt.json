@@ -1,0 +1,7 @@
+{
+  "candidate_id": "primary",
+  "source_sha256": "aff152a5f6f7da2718ca77d8b0ad5efe8246bac3d9975a626252eb02738c2b0e",
+  "pdf_sha256": "0c7035996cc9e3014c3b2b01ae49410ca05cd0b5fee9e86ea722759224f07e07",
+  "updated": "2026-11-25",
+  "change": "Added ShipCheck project (live Vercel deploy, shipcheck-lac.vercel.app)"
+}
