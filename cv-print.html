@@ -33,7 +33,7 @@
 
 <section>
   <h2>Summary</h2>
-  <p>AI systems engineer building voice, agent and cloud-tooling systems that run end to end. I ship local-first speech-to-speech pipelines, an AWS-to-EU-cloud exit planner in Go, and agent-router tooling that measures whether installed skills and agents are actually used. ICT student at STU Bratislava (FEI), based in Bratislava.</p>
+  <p>AI systems engineer building voice, agent and cloud-tooling systems that run end to end. I ship local-first speech-to-speech pipelines, an AWS-to-EU-cloud exit planner in Go, and lingonberry router, a local cross-OS agent router that dispatches prompts to workers under key-pool limits. ICT student at STU Bratislava (FEI), based in Bratislava.</p>
 </section>
 
 <section>
@@ -68,11 +68,11 @@
     </ul>
   </article>
   <article class="item">
-    <div class="head"><span>Agent router — Claude Code skill and agent measurement</span><span class="meta">github.com/brusnyak/agent-router · Public WIP</span></div>
-    <p class="meta">Python, NIM embeddings, SQLite, hooks · pytest</p>
+    <div class="head"><span>Lingonberry router — local AI agent router with worker dispatch</span><span class="meta">github.com/brusnyak/lingonberry-router · Rust core · TypeScript client</span></div>
+    <p class="meta">Rust, TypeScript, Bun, SQLite · 127.0.0.1:8799</p>
     <ul>
-      <li>Measured that only 3% of 953 real prompts triggered an installed skill call; built a shadow hook and treat-vs-holdout report to test whether surfacing the right skill at prompt time changes that.</li>
-      <li>Fail-open hooks log prompt hashes and lengths only (never text); invariants enforced as tests.</li>
+      <li>One local, cross-OS router for every AI agent: scans PATH and env keys, cooks prompts with matching skills, leases provider keys within worker boundaries.</li>
+      <li>Key pool enforces 3 concurrent runs and 40 calls per minute per slot; live PID oversight via menu bar and HTTP API; 30 cargo tests pass.</li>
     </ul>
   </article>
   <article class="item">
